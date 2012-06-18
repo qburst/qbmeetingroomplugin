@@ -1,0 +1,70 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) { #loading{padding-left: 80px;} }
+
+
+#ui-datepicker-div {
+  z-index: 1000 !important;
+}
+
+.ui-widget-header{ background: none !important; background-color: #2C4056 !important; border: none !important; }
+
+.saveMeetingModal { display: none; }
+
+.saveMeetingModal form label { float: left; width: 70px; text-align:left;}
+
+#loading {
+  background-image: url('/images/loading.gif');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-top: 6px;
+}
+#loading { 
+  padding-left:85px\9;
+ }
+div.field{
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 0;
+    padding-top: 5px;
+    width: 358px;
+}
+#save_meeting{
+    position: relative;
+    margin-left:76px;
+}
+div#recur_div{
+width:200px;
+}
+div.recurfield{
+    padding: 5px 0 5px 5px;
+    width: 358px;
+}
+#issue_status_id{
+  margin-left: 36px;
+}
+#issue_priority_id{
+  margin-left: 28px;
+}
+#start_time{
+  margin-left:13px;
+}
+#end_time{
+  margin-left:22px;
+}
+#subject{
+  margin-left:28px;
+}
+
+.myEvents,
+.fc-agenda .myEvents .fc-event-time,
+.myEvents a {
+   background-color: #307D7E; /* background color */
+   }
+
+#recur1{
+   padding: 0 10px 0 72px ;
+}
+#recurCheckbox{
+   margin-left: 40px;
+}
