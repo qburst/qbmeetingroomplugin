@@ -1,0 +1,2 @@
+module MeetingCalendarsHelper
+end
