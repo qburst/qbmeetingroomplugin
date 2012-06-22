@@ -1,4 +1,4 @@
-Google Apps login for Redmine
+Meeting Calendar for Redmine
 =============================
 
 This Redmine plugin allows you to book and thence display meetings on a calendar interface
@@ -14,7 +14,7 @@ Install
 
 Clone the plugin source code into your Redmine's plugin directory.
 
-    git clone git://github.com/waj/redmine_google_apps.git vendor/plugins/redmine_meeting_room_calendar
+    git clone https://github.com/QBurst/qbmeetingroomplugin.git
 
 **NOTE:** Make sure the plugin directory is name `redmine_meeting_room_calendar`.
 
@@ -25,29 +25,30 @@ Setup
 Login with your administrator account, 
 
 Create Tracker
-        From Admin Menu click on Trackers.
-        Click on New tracker and add a new one for our present project(say Book Meeting).
-        On Admin Menu List
-        Click on Custom Fields.
-        There at the bottom click on New custom field, and add: Start Time, End Time, Meeting Room, Meeting Day,which are necessary for our present project.
-        Mark the tracker as the one added from previous step(Book Meeting).
-        Make the format as List
-        Give possible values.
-        Give no Default value
-        Check the “Required ”, “Searchable” and “Used as a filter” boxes(Used as filter is not checked for Start Time and End Time).
-        Note the custom field ids’ from the URI.
-        Creating Rooms(Users)
-        From the Admin Menu select Users
-        Click on New User at top right corner and create as much new ones as necessary; with names as that intended for the meeting rooms (do not check the Administrator box).                    
-        Now Back to the Admin Menu
-        Click on Projects.
-        Top right corner New Project.
-        Give name of the project (say Book Meeting Room).
-        Give  unique name as identifier.
-        Check the trackers as the tracker we created for our project (say Book Meeting) alone.
-        Check all the aforesaid custom Fields added and Save.
-        Now skip to the Members tab ,add the rooms(users) created to the Meeting room project and mark their role as manager to the project .
-        Save the project.
+-------------
+        *From Admin Menu click on Trackers.
+        *Click on New tracker and add a new one for our present project(say Book Meeting).
+        *On Admin Menu List
+        *Click on Custom Fields.
+        *There at the bottom click on New custom field, and add: Start Time, End Time, Meeting Room, Meeting Day,which are necessary for our present project.
+        *Mark the tracker as the one added from previous step(Book Meeting).
+        *Make the format as List
+        *Give possible values.
+        *Give no Default value
+        *Check the “Required ”, “Searchable” and “Used as a filter” boxes(Used as filter is not checked for Start Time and End Time).
+        *Note the custom field ids’ from the URI.
+        *Creating Rooms(Users)
+        *From the Admin Menu select Users
+        *Click on New User at top right corner and create as much new ones as necessary; with names as that intended for the meeting rooms (do not check the Administrator box).                    
+        *Now Back to the Admin Menu
+        *Click on Projects.
+        *Top right corner New Project.
+        *Give name of the project (say Book Meeting Room).
+        *Give  unique name as identifier.
+        *Check the trackers as the tracker we created for our project (say Book Meeting) alone.
+        *Check all the aforesaid custom Fields added and Save.
+        *Now skip to the Members tab ,add the rooms(users) created to the Meeting room project and mark their role as manager to the project .
+        *Save the project.
 
 How it Works
         *The plug-in uses a Fullcalendar jQuery plug-in which uses ajax calls to fetch the events,which are the booked meeting rooms in Redmine by various employees.
