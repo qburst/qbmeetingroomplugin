@@ -25,7 +25,6 @@ Setup
 Login with your administrator account, 
 
 Create Tracker
--------------
         *From Admin Menu click on Trackers.
         *Click on New tracker and add a new one for our present project(say Book Meeting).
         *On Admin Menu List
@@ -39,7 +38,7 @@ Create Tracker
         *Note the custom field ids’ from the URI.
         *Creating Rooms(Users)
         *From the Admin Menu select Users
-        *Click on New User at top right corner and create as much new ones as necessary; with names as that intended for the meeting rooms (do not check the Administrator box).                    
+        *Click on New User at top right corner and create as much new ones as necessary; with names as that intended for the meeting rooms (do not check the Administrator box).                  
         *Now Back to the Admin Menu
         *Click on Projects.
         *Top right corner New Project.
