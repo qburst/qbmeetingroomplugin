@@ -11,18 +11,21 @@
 
 .saveMeetingModal form label { float: left; width: 70px; text-align:left;}
 
-#loading {
-  background-image: url('/images/loading.gif');
+#loading 
+{
+  background-image: url('../images/loading.gif');
   background-repeat: no-repeat;
   width: 16px;
   height: 16px;
   float: right;
   margin-top: 6px;
 }
-#loading { 
-  padding-left:85px\9;
- }
-div.field{
+#loading 
+{ 
+    padding-left:85px\9;
+}
+div.field
+{
     padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 0;
@@ -33,38 +36,52 @@ div.field{
     position: relative;
     margin-left:76px;
 }
-div#recur_div{
-width:200px;
+.formLayout
+{
+    padding: 10px;
+    overflow: hidden;
+}   
+.formLayout label, .formLayout input, .formLayout select
+{
+    display: block;
+    float: left;
+    margin-bottom: 10px;
 }
-div.recurfield{
-    padding: 5px 0 5px 5px;
-    width: 358px;
+.formLayout label
+{
+    width: 90px;
+    text-align: right;
+    padding-right: 20px;
 }
-#issue_status_id{
-  margin-left: 36px;
+.formLayout input, .formLayout select 
+{	
+    width: 200px;
 }
-#issue_priority_id{
-  margin-left: 28px;
+br
+{
+    clear: left;
 }
-#start_time{
-  margin-left:13px;
+.fc-event-skin 
+{
+	border-color: #202020;
 }
-#end_time{
-  margin-left:22px;
+.fc-event-skin .fc-event-bg
+{
+	background: #E0E0E0 !important;
 }
-#subject{
-  margin-left:28px;
+.fc-event-time, .fc-event-inner
+{
+	background: #EA1D22;
 }
-
-.myEvents,
-.fc-agenda .myEvents .fc-event-time,
-.myEvents a {
-   background-color: #307D7E; /* background color */
-   }
-
-#recur1{
-   padding: 0 10px 0 72px ;
+.fc-agenda .myEvents .fc-event-time, .myEvents .fc-event-inner, .myEvents a 
+{
+   background: #EA1D22 url(../images/wrench.png) no-repeat center right; /* background color */
+}
+.fc-event-content 
+{
+	color: #202020;	
+	background: #E0E0E0;
 }
 #recurCheckbox{
-   margin-left: 40px;
+   margin-left: -90px;
 }
