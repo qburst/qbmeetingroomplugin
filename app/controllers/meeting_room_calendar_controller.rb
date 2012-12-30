@@ -4,11 +4,11 @@ class MeetingRoomCalendarController < ApplicationController
   def initialize
     super()
 
-    @project_id = "215" #Hard Coded project_id for Book Meeting Room Project 
-    @tracker_id = '9'   #Hard Coded tracker_id for Book Meeting Room Project
-    @custom_field_id_room = 0 #Hard Coded
-    @custom_field_id_start = 0 #Hard Coded
-    @custom_field_id_end = 0 #Hard Coded
+    @project_id = Setting["plugin_redmine_meeting_room_calendar"]["project_id"]
+    @tracker_id = Setting["plugin_redmine_meeting_room_calendar"]["tracker_id"]
+    @custom_field_id_room = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_room"]
+    @custom_field_id_start = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_start"]
+    @custom_field_id_end = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_end"]
 
     if check_settings()
       @start_time = CustomField.find_by_id(@custom_field_id_start).possible_values
@@ -19,6 +19,7 @@ class MeetingRoomCalendarController < ApplicationController
 
   def index
     if !check_settings()
+      redirect_to :action => 'missing_config'
       return
     end
 
@@ -27,6 +28,10 @@ class MeetingRoomCalendarController < ApplicationController
     @user_name = User.current.name
     @user_last_name = User.current.name(:lastname_coma_firstname)
     @assignable_users = @project.assignable_users.map { |user| [user.name, user.id] }
+
+    if Setting["plugin_redmine_meeting_room_calendar"]["show_project_menu"] != '1'
+      @project = nil
+    end
   end
 
   def create
@@ -85,6 +90,10 @@ class MeetingRoomCalendarController < ApplicationController
     rescue ::ActiveRecord::RecordNotFound # raised by #reload if issue no longer exists
       # nothing to do, issue was already deleted (eg. by a parent)
     end
+  end
+
+  def missing_config
+
   end
 
   def check_settings()

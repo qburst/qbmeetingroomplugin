@@ -65,7 +65,4 @@ How it Works
 * The main feature of the suggested plug-in is that knowing the Project Id and Issue tracker Id of the Book Meeting Project, the plug-in is stand alone in that no other files need to be edited in the actual project. The plug-in file goes into the plugins folder in vendor folder.
 * For easy realization of the situation, the title bars of rooms booked by the presently logged in user is made different in color while displaying along with the others(viz cyan and blue )
 * Besides booking, a meeting room can also be edited; only by the author of the room.
-* The plug-in requires some details like project_id and tracker_id to be hard coded in meeting_calendars_controller.rb
-* The custom_field values from the database needs to be hard coded in meeting_calendars_controller.rb
-* In meeting_calendars_controller.rb, lines 7 - 11 needs hard coded values.
-* In spite some hard coding, the plug-in will be an added asset for better project management.
+* The plug-in requires some details like project_id and tracker_id to be defined in the plugin configuration

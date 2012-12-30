@@ -1,0 +1,29 @@
+<%- project_ids = Project.find(:all) %>
+<p>
+  <%= label_tag("settings[project_id]", l(:label_setting_project_id)) %>
+  <%= select_tag("settings[project_id]", options_for_select([["", 0]] + project_ids.collect{|c| [c.name, c.id]}, (@settings["project_id"] || 0))) %>
+</p>
+
+<%- tracker_ids = Tracker.find(:all) %>
+<p>
+  <%= label_tag("settings[tracker_id]", l(:label_setting_tracker_id)) %>
+  <%= select_tag("settings[tracker_id]", options_for_select([["", 0]] + tracker_ids.collect{|c| [c.name, c.id]}, (@settings["tracker_id"] || 0))) %>
+</p>
+
+<%- custom_fields_issues = CustomField.find(:all, :conditions => "type = 'IssueCustomField' and field_format = 'list'") %>
+<p>
+  <%= label_tag("settings[custom_field_id_room]", l(:label_setting_custom_field_id_room)) %>
+  <%= select_tag("settings[custom_field_id_room]", options_for_select([["", 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings["custom_field_id_room"] || 0))) %>
+</p>
+<p>
+  <%= label_tag("settings[custom_field_id_start]", l(:label_setting_custom_field_id_start)) %>
+  <%= select_tag("settings[custom_field_id_start]", options_for_select([["", 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings["custom_field_id_start"] || 0))) %>
+</p>
+<p>
+  <%= label_tag("settings[custom_field_id_end]", l(:label_setting_custom_field_id_end)) %>
+  <%= select_tag("settings[custom_field_id_end]", options_for_select([["", 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings["custom_field_id_end"] || 0))) %>
+</p>
+<p>
+  <%= label_tag("settings[show_project_menu]", l(:label_setting_show_project_menu)) %>
+  <%= check_box_tag("settings[show_project_menu]", 1, (@settings["show_project_menu"] == '1')) %>
+</p>
