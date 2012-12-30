@@ -1,6 +1,8 @@
-ActionController::Routing::Routes.draw do |map|
+# Plugin's routes
+# See: http://guides.rubyonrails.org/routing.html
 
- map.connect '/meeting_room_calendar', :controller => 'meeting_room_calendar', :action => 'index'
- map.connect '/meeting_room_calendar/create', :controller => 'meeting_room_calendar', :action => 'create'
- map.connect '/meeting_room_calendar/update', :controller => 'meeting_room_calendar', :action => 'update'
-end
+match 'meeting_room_calendar', :to => 'meeting_room_calendar#index'
+match 'meeting_room_calendar/index', :to => 'meeting_room_calendar#index'
+match 'meeting_room_calendar/create', :to => 'meeting_room_calendar#create'
+match 'meeting_room_calendar/update', :to => 'meeting_room_calendar#update'
+match 'meeting_room_calendar/delete', :to => 'meeting_room_calendar#delete'

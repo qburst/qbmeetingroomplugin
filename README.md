@@ -7,14 +7,15 @@ This Redmine plugin allows you to book and thence display meetings on a calendar
 Requirements
 ------------
 
-* Redmine 1.3.x or 1.4.x
+* Redmine 2.x
 
 Install
 -------
 
 Clone the plugin source code into your Redmine's plugin directory.
 
-    git clone https://github.com/QBurst/qbmeetingroomplugin.git
+    git clone https://github.com/dro123/redmine_meeting_room_calendar.git
+    (original code: git clone https://github.com/QBurst/qbmeetingroomplugin.git)
 
 **NOTE:** Make sure the plugin directory is name `redmine_meeting_room_calendar`.
 
@@ -66,7 +67,5 @@ How it Works
 * Besides booking, a meeting room can also be edited; only by the author of the room.
 * The plug-in requires some details like project_id and tracker_id to be hard coded in meeting_calendars_controller.rb
 * The custom_field values from the database needs to be hard coded in meeting_calendars_controller.rb
-* The custom_field values from the rendered json needs to be hard coded in meeting_calendar.js
-* In meeting_calendars_controller.rb, lines 6,8,11,13,15,25 and 40 needs hard coded values.
-* In meetingcalendar.js, lines lines 52,54,56 and 58 needs hard coded values.
+* In meeting_calendars_controller.rb, lines 7 - 11 needs hard coded values.
 * In spite some hard coding, the plug-in will be an added asset for better project management.

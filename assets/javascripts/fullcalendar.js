@@ -44,35 +44,35 @@ var defaults = {
 	
 	// time formats
 	titleFormat: {
-		month: 'MMMM yyyy',
-		week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-		day: 'dddd, MMM d, yyyy'
+		month: langDateTimeTimeTitleFormatMonth,
+		week: langDateTimeTimeTitleFormatWeek,
+		day: langDateTimeTimeTitleFormatDay
 	},
 	columnFormat: {
-		month: 'ddd',
-		week: 'ddd M/d',
-		day: 'dddd M/d'
+		month: langDateTimeTimeColumnFormatMonth,
+		week: langDateTimeTimeColumnFormatWeek,
+		day: langDateTimeTimeColumnFormatDay
 	},
 	timeFormat: { // for event elements
-		'': 'h(:mm)t' // default
+		'': langDateTimeTimeEntryFormatTime // default
 	},
 	
 	// locale
 	isRTL: false,
-	firstDay: 0,
-	monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-	monthNamesShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-	dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-	dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+	firstDay: langFirstDay,
+	monthNames: langMonthNames,
+	monthNamesShort: langAbbrMonthNames,
+	dayNames: langDayNames,
+	dayNamesShort: langAbbrDayNames,
 	buttonText: {
 		prev: '&nbsp;&#9668;&nbsp;',
 		next: '&nbsp;&#9658;&nbsp;',
 		prevYear: '&nbsp;&lt;&lt;&nbsp;',
 		nextYear: '&nbsp;&gt;&gt;&nbsp;',
-		today: 'today',
-		month: 'month',
-		week: 'week',
-		day: 'day'
+		today: langToday,
+		month: langMonth,
+		week: langWeek,
+		day: langDay
 	},
 	
 	// jquery-ui theming
