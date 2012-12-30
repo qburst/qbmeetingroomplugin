@@ -1,4 +1,4 @@
-class MeetingCalendarsController < ApplicationController
+class MeetingRoomCalendarController < ApplicationController
   unloadable
   before_filter :require_login
   
