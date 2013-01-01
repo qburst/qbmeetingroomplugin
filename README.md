@@ -172,6 +172,6 @@ Go to the plugin settings in Admin -> Plugins and click on 'Configure' for the p
 
 ![ScreenShot](https://raw.github.com/dro123/redmine_meeting_room_calendar/master/screenshots/screenshot_index1.png)
 
-![ScreenShot](https://raw.github.com/dro123/redmine_meeting_room_calendar/master/screenshots/screenshot_index1.png)
+![ScreenShot](https://raw.github.com/dro123/redmine_meeting_room_calendar/master/screenshots/screenshot_add1.png)
 
 ![ScreenShot](https://raw.github.com/dro123/redmine_meeting_room_calendar/master/screenshots/screenshot_update_delete1.png)
