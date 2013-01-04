@@ -12,13 +12,16 @@ This Redmine plugin allows you to book and thence display meetings on a calendar
 # Install
 -------
 
-Clone the plugin source code into your Redmines plugin directory.
+Clone the plugin source code into your Redmines plugin directory:
 
     git clone https://github.com/dro123/redmine_meeting_room_calendar.git
     (original code: git clone https://github.com/QBurst/qbmeetingroomplugin.git)
 
-**NOTE:** Make sure the plugin directory is name `redmine_meeting_room_calendar`.
+**NOTE:** Make sure the plugin directory is named `redmine_meeting_room_calendar`.
 
+Run the following command from a command line:
+
+    rake redmine:plugins:migrate
 
 # Setup
 -----
