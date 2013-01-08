@@ -25,7 +25,7 @@
           $.ajax({
               url : 'issues.json',
               dataType : 'json',
-              data : 'project_id=' + project_id + '&cf_5=' + meeting_room + '&start_date=>=' + today + '&limit=' + 100 + '&offset=' + offset,
+              data : 'key=' + api_key + '&project_id=' + project_id + '&cf_5=' + meeting_room + '&start_date=>=' + today + '&limit=' + 100 + '&offset=' + offset,
               beforeSend : function(xhr) {
                   showSpinner();
               },
@@ -511,7 +511,8 @@
               return false;
 
           var ajaxData = {
-              event_id : $('#event_id').val()
+              key: api_key,
+              event_id: $('#event_id').val()
           };
           console.log('Deleting');
           $.ajax({
@@ -563,6 +564,7 @@
                       customData[fieldIdEnd] = end_time;
                       customData[fieldIdRoom] = $('#meeting_rooms').val();
                       var ajaxData = {
+                          key: api_key,
                           author_id : $('#author_id').val(),
                           assigned_to_id : $('#assigned_to_id').val(),
                           subject : $('#subject').val(),

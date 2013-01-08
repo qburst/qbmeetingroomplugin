@@ -1,5 +1,6 @@
 class MeetingRoomCalendarController < ApplicationController
   unloadable
+  accept_api_auth :index, :create, :update, :delete, :missing_config
 
   def initialize
     super()
@@ -28,6 +29,11 @@ class MeetingRoomCalendarController < ApplicationController
     @user_name = User.current.name
     @user_last_name = User.current.name(:lastname_coma_firstname)
     @assignable_users = @project.assignable_users.map { |user| [user.name, user.id] }
+
+    @api_key = User.current.api_key
+    if !User.current.allowed_to?(:view_issues, @project)
+      render_403
+    end
 
     if Setting["plugin_redmine_meeting_room_calendar"]["show_project_menu"] != '1'
       @project = nil

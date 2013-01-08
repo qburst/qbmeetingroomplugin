@@ -53,6 +53,8 @@
 	var langMonthNames = <%= raw l(:month_names) %>;
 	var langFirstDay = <%= raw l(:first_day) %>;
 	var langDateFormat = "<%= l(:date_format) %>";
+
+	var api_key = "<%= @api_key %>";
 </script>
 
 <%= javascript_include_tag 'jquery-1.7.1.min.js' ,:plugin => 'redmine_meeting_room_calendar'%>
