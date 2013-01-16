@@ -25,7 +25,7 @@
           $.ajax({
               url : 'issues.json',
               dataType : 'json',
-              data : 'key=' + api_key + '&project_id=' + project_id + '&cf_5=' + meeting_room + '&start_date=>=' + today + '&limit=' + 100 + '&offset=' + offset,
+              data : 'key=' + api_key + '&project_id=' + project_id + '&cf_' + fieldIdRoom + '=' + meeting_room + '&start_date=>=' + today + '&limit=' + 100 + '&offset=' + offset,
               beforeSend : function(xhr) {
                   showSpinner();
               },
