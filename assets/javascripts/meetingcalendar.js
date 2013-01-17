@@ -49,7 +49,7 @@
               },
               error : function(jqXHR, textStatus, errorThrown) {
                   hideSpinner();
-                  alert(textStatus);
+                  alert(textStatus + ": " + errorThrown);
               }
           });
           return true;

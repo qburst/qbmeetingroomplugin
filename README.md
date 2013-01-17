@@ -153,6 +153,11 @@ Go to the plugin settings in Admin -> Plugins and click on 'Configure' for the p
 * Decide wheter the project menu should be visible in the calendar view
 ![ScreenShot](https://raw.github.com/dro123/redmine_meeting_room_calendar/master/screenshots/6_plugin_settings.png)
 
+## 6. Configure Redmine
+Go to the plugin settings in Admin -> Settings -> Authentication
+If 'Authentication required' is activated or the project you created is not public you have to enable the REST web service authentication with 'Enable REST web service'.
+![ScreenShot](https://raw.github.com/dro123/redmine_meeting_room_calendar/master/screenshots/7_redmine_settings.png)
+
 # How it Works
 
 * The plug-in uses a Fullcalendar jQuery plug-in which uses ajax calls to fetch the events,which are the booked meeting rooms in Redmine by various employees.
