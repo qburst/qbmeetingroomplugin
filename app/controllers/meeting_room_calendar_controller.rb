@@ -68,7 +68,14 @@ class MeetingRoomCalendarController < ApplicationController
         @calendar_issue.start_date = meeting_date
         @calendar_issue.due_date = @calendar_issue.start_date
         @calendar_issue.custom_field_values = params[:custom_field_values]
+        original_mail_notification_value = User.current.mail_notification
+        User.current.mail_notification = 'none'
+        User.current.save
+        User.current.reload
         @calendar_issue.save!
+        User.current.mail_notification = original_mail_notification_value
+        User.current.save
+        User.current.reload
       else
       recur_period +=1
       end
@@ -90,7 +97,14 @@ class MeetingRoomCalendarController < ApplicationController
     @calendar_issue.start_date = meeting_date
     @calendar_issue.due_date = @calendar_issue.start_date
     @calendar_issue.custom_field_values = params[:custom_field_values]
+    original_mail_notification_value = User.current.mail_notification
+    User.current.mail_notification = 'none'
+    User.current.save
+    User.current.reload
     @calendar_issue.save!
+    User.current.mail_notification = original_mail_notification_value
+    User.current.save
+    User.current.reload
   end
 
   def delete
