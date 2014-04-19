@@ -75,7 +75,31 @@ br
 }
 .fc-agenda .myEvents .fc-event-time, .myEvents .fc-event-inner, .myEvents a 
 {
-   background: #EA1D22 url(../images/wrench.png) no-repeat center right; /* background color */
+   background-image: url(../images/wrench.png);
+   background-repeat: no-repeat;
+   background-position: center right
+}
+
+/************************************************************************************************************
+add the following for every category (<cid>=category id) where you want a different style:
+
+.fc-agenda .category_<cid> .fc-event-time, .category_<cid> .fc-event-inner, .category_<cid> a
+{
+  background-color: #<color>;
+}
+************************************************************************************************************/
+
+.fc-agenda .category_1 .fc-event-time, .category_1 .fc-event-inner, .category_1 a
+{
+    background-color: #EA1D22;
+}
+.fc-agenda .category_2 .fc-event-time, .category_2 .fc-event-inner, .category_2 a
+{
+    background-color: #EA1D22;
+}
+.fc-agenda .category_3 .fc-event-time, .category_3 .fc-event-inner, .category_3 a
+{
+    background-color: #EA1D22;
 }
 .fc-event-content 
 {

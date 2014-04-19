@@ -5,6 +5,7 @@ de:
   label_booked_by: "Gebucht von"
   label_assigned_to: "Zugewiesen an"
   label_assigne_to: "Zuweisen an"
+  label_category: "Kategorie"
   label_start_time: "Beginn"
   label_end_time: "Ende"
   label_info: "Info"
@@ -39,6 +40,7 @@ de:
   label_setting_custom_field_id_start: "Benutzerfeld 'Start'"
   label_setting_custom_field_id_end: "Benutzerfeld 'Ende'"
   label_setting_show_project_menu: "Projektmenü anzeigen"
+  label_setting_show_categories: "Kategorieauswahl anzeigen"
 
   datetime_title_format_day: "dddd, d. MMM, yyyy"
   datetime_title_format_week: "d. MMM[ yyyy]{ - d. MMM yyyy}"

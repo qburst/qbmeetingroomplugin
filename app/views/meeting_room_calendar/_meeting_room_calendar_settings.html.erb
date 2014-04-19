@@ -27,3 +27,7 @@
   <%= label_tag("settings[show_project_menu]", l(:label_setting_show_project_menu)) %>
   <%= check_box_tag("settings[show_project_menu]", 1, (@settings["show_project_menu"] == '1')) %>
 </p>
+<p>
+  <%= label_tag("settings[show_categories]", l(:label_setting_show_categories)) %>
+  <%= check_box_tag("settings[show_categories]", 1, (@settings["show_categories"] == '1')) %>
+</p>

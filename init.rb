@@ -15,7 +15,8 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
                         "custom_field_id_room" => "0",
                         "custom_field_id_start" => "0",
                         "custom_field_id_end" => "0",
-                        "show_project_menu" => "1"},
+                        "show_project_menu" => "1",
+                        "show_categories" => "0"},
            :partial => "meeting_room_calendar/meeting_room_calendar_settings"
 end
 

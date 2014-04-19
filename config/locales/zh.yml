@@ -5,6 +5,7 @@ zh:
   label_booked_by: "预订人"
   label_assigned_to: "与会者"
   label_assigne_to: "与会者"
+  label_category: "Category"
   label_start_time: "开始时间"
   label_end_time: "结束时间"
   label_info: "信息"
@@ -39,6 +40,7 @@ zh:
   label_setting_custom_field_id_start: "自定义字段 '开始时间'"
   label_setting_custom_field_id_end: "自定义字段 '结束时间'"
   label_setting_show_project_menu: "显示项目菜单"
+  label_setting_show_categories: "Show category selection"
 
   datetime_title_format_day: "dddd, MMM d, yyyy"
   datetime_title_format_week: "MMM d[ yyyy]{ -[ MMM] d yyyy}"

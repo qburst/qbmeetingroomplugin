@@ -10,6 +10,7 @@ class MeetingRoomCalendarController < ApplicationController
     @custom_field_id_room = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_room"]
     @custom_field_id_start = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_start"]
     @custom_field_id_end = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_end"]
+    @show_categories = Setting["plugin_redmine_meeting_room_calendar"]["show_categories"]
 
     if check_settings()
       @start_time = CustomField.find_by_id(@custom_field_id_start).possible_values
@@ -33,6 +34,7 @@ class MeetingRoomCalendarController < ApplicationController
       @user_is_manager = 1
     end
     @assignable_users = @project.assignable_users.map { |user| [user.name, user.id] }
+    @categories = [["", 0]].concat(@project.issue_categories.map { |c| [c.name, c.id] })
 
     @api_key = User.current.api_key
     if !User.current.allowed_to?(:view_issues, @project)
@@ -65,6 +67,9 @@ class MeetingRoomCalendarController < ApplicationController
         @calendar_issue.subject = params[:subject]
         @calendar_issue.author_id = params[:author_id]
         @calendar_issue.assigned_to_id = params[:assigned_to_id]
+        if @show_categories
+          @calendar_issue.category_id = params[:category_id]
+        end
         @calendar_issue.start_date = meeting_date
         @calendar_issue.due_date = @calendar_issue.start_date
         @calendar_issue.custom_field_values = params[:custom_field_values]
@@ -94,6 +99,9 @@ class MeetingRoomCalendarController < ApplicationController
     @calendar_issue = Issue.find(params[:event_id])
     @calendar_issue.subject = params[:subject]
     @calendar_issue.assigned_to_id = params[:assigned_to_id]
+    if @show_categories
+      @calendar_issue.category_id = params[:category_id]
+    end
     @calendar_issue.start_date = meeting_date
     @calendar_issue.due_date = @calendar_issue.start_date
     @calendar_issue.custom_field_values = params[:custom_field_values]

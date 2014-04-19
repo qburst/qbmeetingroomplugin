@@ -96,17 +96,25 @@
               var assigned_to_name = event[i].author.name;
               if (event[i].assigned_to)
                   assigned_to_name = event[i].assigned_to.name;
+              var category_id = 0;
+              var category_name = '';
+              if (event[i].category) {
+                  category_id = event[i].category.id;
+                  category_name = event[i].category.name;
+              }
               var eventsub = '';
               var repl
               var limit
-              if (event[i].subject.length >= '36') {
-                  event[i].subject = stripSubject(event[i].subject, 36) + " ...";
+              var title = event[i].subject;
+              if (title.length >= '36') {
+                 title = stripSubject(title, 36) + " ...";
               }
+              eventClassName = 'category_' + category_id;
               if (isCurrentUser(event[i].author.id, assigned_to_id)) {
-                  eventClassName = 'myEvents';
+                  eventClassName = 'myEvents ' + eventClassName;
               }
               eventsJSON.push({
-                  title : event[i].subject,
+                  title : title,
                   author : author_name,
                   start : start_time,
                   end : end_time,
@@ -119,6 +127,8 @@
                   event_author_id : event[i].author.id,
                   assigned_to_id : assigned_to_id,
                   assigned_to_name : assigned_to_name,
+                  category_id: category_id,
+                  category_name: category_name,
                   className : eventClassName,
                   cache : true,
                   allDay : false
@@ -275,10 +285,14 @@
                   maxTime : langDateTimeMax,
                   weekends : false,
                   eventRender : function(event, element) {
+                      var full_text = '<p>' + langAssignedTo + ': ' + event.assigned_to_name + '<br />' + langBookedBy + ': ' + event.author + '<br />' + langStartTime + ': ' + event.starttime + '<br/>' + langEndTime + ': ' + event.endtime;
+                      if (show_categories=='1')
+                        full_text = full_text + '<br/>' + langCategory + ': ' + event.category_name;
+                      full_text = full_text + '</p>';
                       element.qtip({
                           content : {
                               // Set the text and title fot the tooltip
-                              text : '<p>' + langAssignedTo + ': ' + event.assigned_to_name + '<br />' + langBookedBy + ': ' + event.author + '<br />' + langStartTime + ': ' + event.starttime + '<br/>' + langEndTime + ': ' + event.endtime + '</p>',
+                              text : full_text,
                               title : {
                                   text : event.subject // Give the tooltip a title using each elements text
                               }
@@ -343,6 +357,7 @@
                           $('#start_time').val(calEvent.starttime);
                           $('#end_time').val(calEvent.endtime);
                           $('#assigned_to_id').val(calEvent.assigned_to_id);
+                          $('#category_id').val(calEvent.category_id);
                           $('.saveMeetingModal').dialog({
                               title : langUpdateEvent,
                               modal : true,
@@ -381,7 +396,8 @@
                           var end_time = $.fullCalendar.formatDate(new Date(date.setHours(date.getHours() + 1)), langDateTimeTimeFormat);
                           $('#start_time').val(start_time);
                           $('#end_time').val(end_time);
-                          $('#assigned_to_id').val($('#author_id').val());
+                          $('#assigned_to_id').val($('#author_id').val());                          
+                          $('#category_id').val(0);
                           $('.saveMeetingModal').dialog({
                               title : langCreateEvent,
                               modal : true,
@@ -563,10 +579,14 @@
                       customData[fieldIdStart] = start_time;
                       customData[fieldIdEnd] = end_time;
                       customData[fieldIdRoom] = $('#meeting_rooms').val();
+                      var category_id = 0;
+                      if (show_categories == '1')
+                        category_id = $('#category_id').val();
                       var ajaxData = {
                           key: api_key,
                           author_id : $('#author_id').val(),
                           assigned_to_id : $('#assigned_to_id').val(),
+                          category_id: category_id,
                           subject : $('#subject').val(),
                           start_date : meeting_day,
                           due_date : meeting_day,
