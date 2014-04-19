@@ -13,8 +13,9 @@
 	
 	var pluginName = "meeting_room_calendar";
   
-    var project_id  = <%= @project_id %>;
-    var user_last_name  = "<%= @user_last_name %>";
+	var project_id  = <%= @project_id %>;
+	var user_is_manager  = <%= @user_is_manager %>;
+	var user_last_name  = "<%= @user_last_name %>";
 	
 	var langBookedBy  = "<%= l(:label_booked_by) %>";
 	var langAssignedTo  = "<%= l(:label_assigned_to) %>";
@@ -51,7 +52,7 @@
 	var langDayNames = <%= raw l(:day_names) %>;
 	var langAbbrMonthNames = <%= raw l(:abbr_month_names) %>;
 	var langMonthNames = <%= raw l(:month_names) %>;
-	var langFirstDay = <%= raw l(:first_day) %>;
+	var langFirstDay = <%= l(:first_day) %>;
 	var langDateFormat = "<%= l(:date_format) %>";
 
 	var api_key = "<%= @api_key %>";
@@ -76,7 +77,7 @@
 <div class="saveMeetingModal">
 	<div class="formLayout">
         <%= label_tag("meeting_date", l(:label_meeting_date)) %><%= text_field_tag("meeting_date") %><br/>
-	    <%= label_tag(:subject, l(:label_subject)) %><%= text_field_tag :subject,@user_last_name,:maxlength => 50 %><br/>
+	    <%= label_tag(:subject, l(:label_subject)) %><%= text_field_tag :subject,@user_last_name,:maxlength => 255 %><br/>
 	    <%= label_tag("start_time", l(:label_start_time)) %><%= select_tag "start_time", options_for_select(@start_time) %><br/>
 	    <%= label_tag("end_time", l(:label_end_time)) %><%= select_tag "end_time", options_for_select(@end_time) %><br/>
 	    <%= label_tag(:assigned_to_id, l(:label_assigne_to)) %> <%= select_tag :assigned_to_id, options_for_select(@assignable_users, @user) %><br/>

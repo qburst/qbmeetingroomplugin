@@ -3,7 +3,7 @@ de:
   label_name: "Besprechungszimmer"
   label_meeting_date: "Datum"
   label_booked_by: "Gebucht von"
-  label_assigned_to: "Zugewiesene an"
+  label_assigned_to: "Zugewiesen an"
   label_assigne_to: "Zuweisen an"
   label_start_time: "Beginn"
   label_end_time: "Ende"

@@ -233,7 +233,7 @@
       */
       var isCurrentUser = function(event_author_id, event_assigned_to_id) {
           var current_user_id = $('#author_id').val();
-          if ((event_author_id == current_user_id) || (event_assigned_to_id == current_user_id) || (current_user_id == 1)) {
+          if ((event_author_id == current_user_id) || (event_assigned_to_id == current_user_id) || (user_is_manager == 1)) {
               return true;
           } else {
               return false;

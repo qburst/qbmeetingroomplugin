@@ -28,6 +28,10 @@ class MeetingRoomCalendarController < ApplicationController
     @user = User.current.id
     @user_name = User.current.name
     @user_last_name = User.current.name(:lastname_coma_firstname)
+    @user_is_manager = 0
+    if User.current.allowed_to?(:edit_project, @project) 
+      @user_is_manager = 1
+    end
     @assignable_users = @project.assignable_users.map { |user| [user.name, user.id] }
 
     @api_key = User.current.api_key
