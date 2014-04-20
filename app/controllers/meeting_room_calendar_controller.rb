@@ -5,7 +5,19 @@ class MeetingRoomCalendarController < ApplicationController
   def initialize
     super()
 
+    @settings = Setting['plugin_redmine_meeting_room_calendar']
+
+    # Backward compatibility
     @project_id = Setting['plugin_redmine_meeting_room_calendar']['project_id']
+    @project_ids = Setting['plugin_redmine_meeting_room_calendar']['project_ids'] || []
+    unless @project_id == nil || @project_id == 0 ||  @project_id == '0' || @project_id == ''
+      @project_ids = @project_ids + [@project_id]
+      Setting['plugin_redmine_meeting_room_calendar']['project_ids'] = @project_ids
+    else
+      @project_id = @project_ids[0]
+    end
+    Setting['plugin_redmine_meeting_room_calendar']['project_id'] = '0'
+
     @tracker_id = Setting['plugin_redmine_meeting_room_calendar']['tracker_id']
     @custom_field_id_room = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_room']
     @custom_field_id_start = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_start']
@@ -17,6 +29,12 @@ class MeetingRoomCalendarController < ApplicationController
       @end_time =  CustomField.find_by_id(@custom_field_id_end).possible_values
       @meeting_rooms = CustomField.find_by_id(@custom_field_id_room).possible_values
     end
+
+    if Rails::VERSION::MAJOR < 3
+      @base_url = Redmine::Utils::relative_url_root
+    else
+      @base_url = config.relative_url_root
+    end
   end
 
   def index
@@ -25,7 +43,12 @@ class MeetingRoomCalendarController < ApplicationController
       return
     end
 
-    @project = Project.find_by_id(@project_id)
+    @projects = Project.find(@project_ids).collect { |p| [p.name, p.id] }
+    @project = Project.find_by_id(params[:project_id].to_i)
+    if @project == nil
+      @project = Project.find_by_id(@project_id.to_i)
+    end
+    @project_id = @project.id
     @user = User.current.id
     @user_name = User.current.name
     @user_last_name = User.current.name(:lastname_coma_firstname)
@@ -52,6 +75,7 @@ class MeetingRoomCalendarController < ApplicationController
     recur_period = params[:period].to_i
     meeting_day = params[:start_date]
     meeting_date = Date.parse(meeting_day)
+    project_id = params[:project_id].to_i
 
     if recur_meeting != 'true'
       recur_type = 1
@@ -62,7 +86,7 @@ class MeetingRoomCalendarController < ApplicationController
       week_day = meeting_date.wday # 0->Sunday, 6-> Saturday
       if week_day!=6 && week_day!=0
         @calendar_issue= Issue.new
-        @calendar_issue.project_id = @project_id
+        @calendar_issue.project_id = project_id
         @calendar_issue.tracker_id = @tracker_id
         @calendar_issue.subject = params[:subject]
         @calendar_issue.author_id = params[:author_id]
@@ -92,9 +116,10 @@ class MeetingRoomCalendarController < ApplicationController
   def update
     meeting_day   = params[:start_date]
     meeting_date  = Date.parse(meeting_day)
+    project_id = params[:project_id].to_i
 
     @calendar_issue = Issue.new
-    @calendar_issue.project_id = @project_id
+    @calendar_issue.project_id = project_id
     @calendar_issue.tracker_id = @tracker_id
     @calendar_issue = Issue.find(params[:event_id])
     @calendar_issue.subject = params[:subject]
@@ -125,10 +150,10 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def check_settings
-    if @project_id == nil || @project_id.to_s == '0' || @project_id.to_s == ''
+    if @project_ids == nil || @project_ids.length == 0 || @project_ids[0].to_s == '0' || @project_ids[0].to_s == ''
       return false
     end
-    if @tracker_id == nil || @tracker_id.to_s == '0' || @project_id.to_s == ''
+    if @tracker_id == nil || @tracker_id.to_s == '0' || @tracker_id.to_s == ''
       return false
     end
     if @custom_field_id_room == nil || @custom_field_id_room.to_s == '0' || @custom_field_id_room.to_s == ''

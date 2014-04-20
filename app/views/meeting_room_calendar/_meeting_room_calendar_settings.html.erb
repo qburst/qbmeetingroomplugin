@@ -1,7 +1,7 @@
 <%- project_ids = Project.find(:all) %>
 <p>
-  <%= label_tag('settings[project_id]', l(:label_setting_project_id)) %>
-  <%= select_tag('settings[project_id]', options_for_select([['', 0]] + project_ids.collect{|c| [c.name, c.id]}, (@settings['project_id'] || 0))) %>
+  <%= label_tag('settings[project_ids]', l(:label_setting_project_id)) %>
+  <%= select_tag('settings[project_ids]', options_for_select(project_ids.collect{|c| [c.name, c.id]}, (@settings['project_ids'] || [])), :multiple => true) %>
 </p>
 
 <%- tracker_ids = Tracker.find(:all) %>
@@ -30,4 +30,12 @@
 <p>
   <%= label_tag('settings[show_categories]', l(:label_setting_show_categories)) %>
   <%= check_box_tag('settings[show_categories]', 1, (@settings['show_categories'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[hide_projects]', l(:label_setting_hide_projects)) %>
+  <%= check_box_tag('settings[hide_projects]', 1, (@settings['hide_projects'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[hide_rooms]', l(:label_setting_hide_rooms)) %>
+  <%= check_box_tag('settings[hide_rooms]', 1, (@settings['hide_rooms'] == '1')) %>
 </p>

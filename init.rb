@@ -11,12 +11,15 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
   menu :top_menu, :meeting_room_calendar, { :controller => 'meeting_room_calendar', :action => 'index' }, :caption => :label_name, :after => :help
 
   settings :default => {'project_id' => '0',
+                        'project_ids' => [],
                         'tracker_id' => '0',
                         'custom_field_id_room' => '0',
                         'custom_field_id_start' => '0',
                         'custom_field_id_end' => '0',
                         'show_project_menu' => '1',
-                        'show_categories' => '0'},
+                        'show_categories' => '0',
+                        'hide_projects' => '1',
+                        'hide_rooms' => '0'},
            :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 

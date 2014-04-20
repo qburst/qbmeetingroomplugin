@@ -20,6 +20,7 @@ en:
   label_invalid_subject: "Please enter a valid subject"
   label_room_already_booked: "Meeting room already booked"
   label_goto: "Go to"
+  label_project: "Project"
   label_meeting_room: "Meeting room"
   label_subject: "Subject"
   label_recur: "Recur"
@@ -41,6 +42,8 @@ en:
   label_setting_custom_field_id_end: "Custom field 'End'"
   label_setting_show_project_menu: "Show project menu"
   label_setting_show_categories: "Show category selection"
+  label_setting_hide_projects: "Hide project selection"
+  label_setting_hide_rooms: "Hide room selection"
 
   datetime_title_format_day: "dddd, MMM d, yyyy"
   datetime_title_format_week: "MMM d[ yyyy]{ -[ MMM] d yyyy}"

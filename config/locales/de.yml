@@ -20,6 +20,7 @@ de:
   label_invalid_subject: "Bitte ein gültigen Titel angeben"
   label_room_already_booked: "Besprechungszimmer bereits gebucht"
   label_goto: "Gehe zu"
+  label_project: "Projekt"
   label_meeting_room: "Besprechungszimmer"
   label_subject: "Titel"
   label_recur: "Wiederkehrend"
@@ -41,6 +42,8 @@ de:
   label_setting_custom_field_id_end: "Benutzerfeld 'Ende'"
   label_setting_show_project_menu: "Projektmenü anzeigen"
   label_setting_show_categories: "Kategorieauswahl anzeigen"
+  label_setting_hide_projects: "Pojektauswahl ausblenden"
+  label_setting_hide_rooms: "Raumauswahl ausblenden"
 
   datetime_title_format_day: "dddd, d. MMM, yyyy"
   datetime_title_format_week: "d. MMM[ yyyy]{ - d. MMM yyyy}"

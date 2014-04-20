@@ -18,12 +18,13 @@
       */
       getEventsJSON = function(offset) {
           meeting_room = $('#meeting_rooms').val();
+          project_id = $('#project_id').val();
           var current_date = new Date();
           current_date.setDate(current_date.getDate() - 14);
           var today = $.datepicker.formatDate("yy-mm-dd", current_date);
           //  selected meeting room
           $.ajax({
-              url : 'issues.json',
+              url : baseUrl + '/issues.json',
               dataType : 'json',
               data : 'key=' + api_key + '&project_id=' + project_id + '&cf_' + fieldIdRoom + '=' + meeting_room + '&start_date=>=' + today + '&limit=' + 100 + '&offset=' + offset,
               beforeSend : function(xhr) {
@@ -464,6 +465,10 @@
           reloadCalendar();
       });
 
+      $('#project_id').change(function() {
+          location.assign(baseUrl + '/' + pluginName + '/' + $('#project_id').val());
+      });
+
       $('#start_time').change(function() {
           setEndTime();
       });
@@ -532,7 +537,7 @@
           };
           console.log('Deleting');
           $.ajax({
-              url : pluginName + '/delete',
+              url : baseUrl + '/' + pluginName + '/delete',
               data : ajaxData,
               success : function(data) {
                   reloadCalendar();
@@ -584,6 +589,7 @@
                         category_id = $('#category_id').val();
                       var ajaxData = {
                           key: api_key,
+                          project_id: $('#project_id').val(),
                           author_id : $('#author_id').val(),
                           assigned_to_id : $('#assigned_to_id').val(),
                           category_id: category_id,
@@ -597,7 +603,7 @@
                           period : $('#period').val()
                       };
                       $.ajax({
-                          url : pluginName + '/' + action,
+                          url : baseUrl + '/' + pluginName + '/' + action,
                           data : ajaxData,
                           success : function(data) {
                               $('#event_id').val(0);
