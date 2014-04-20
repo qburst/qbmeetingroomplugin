@@ -10,14 +10,14 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
   permission :meeting_room_calendar, { :meeting_room_calendar => [:index] }, :public => true
   menu :top_menu, :meeting_room_calendar, { :controller => 'meeting_room_calendar', :action => 'index' }, :caption => :label_name, :after => :help
 
-  settings :default => {"project_id" => "0",
-                        "tracker_id" => "0",
-                        "custom_field_id_room" => "0",
-                        "custom_field_id_start" => "0",
-                        "custom_field_id_end" => "0",
-                        "show_project_menu" => "1",
-                        "show_categories" => "0"},
-           :partial => "meeting_room_calendar/meeting_room_calendar_settings"
+  settings :default => {'project_id' => '0',
+                        'tracker_id' => '0',
+                        'custom_field_id_room' => '0',
+                        'custom_field_id_start' => '0',
+                        'custom_field_id_end' => '0',
+                        'show_project_menu' => '1',
+                        'show_categories' => '0'},
+           :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 
 

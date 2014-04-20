@@ -5,14 +5,14 @@ class MeetingRoomCalendarController < ApplicationController
   def initialize
     super()
 
-    @project_id = Setting["plugin_redmine_meeting_room_calendar"]["project_id"]
-    @tracker_id = Setting["plugin_redmine_meeting_room_calendar"]["tracker_id"]
-    @custom_field_id_room = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_room"]
-    @custom_field_id_start = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_start"]
-    @custom_field_id_end = Setting["plugin_redmine_meeting_room_calendar"]["custom_field_id_end"]
-    @show_categories = Setting["plugin_redmine_meeting_room_calendar"]["show_categories"]
+    @project_id = Setting['plugin_redmine_meeting_room_calendar']['project_id']
+    @tracker_id = Setting['plugin_redmine_meeting_room_calendar']['tracker_id']
+    @custom_field_id_room = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_room']
+    @custom_field_id_start = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_start']
+    @custom_field_id_end = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_end']
+    @show_categories = Setting['plugin_redmine_meeting_room_calendar']['show_categories']
 
-    if check_settings()
+    if check_settings
       @start_time = CustomField.find_by_id(@custom_field_id_start).possible_values
       @end_time =  CustomField.find_by_id(@custom_field_id_end).possible_values
       @meeting_rooms = CustomField.find_by_id(@custom_field_id_room).possible_values
@@ -20,12 +20,12 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def index
-    if !check_settings()
+    unless check_settings
       redirect_to :action => 'missing_config'
       return
     end
 
-    @project = Project.find_by_id(@project_id);
+    @project = Project.find_by_id(@project_id)
     @user = User.current.id
     @user_name = User.current.name
     @user_last_name = User.current.name(:lastname_coma_firstname)
@@ -33,15 +33,15 @@ class MeetingRoomCalendarController < ApplicationController
     if User.current.allowed_to?(:edit_project, @project) 
       @user_is_manager = 1
     end
-    @assignable_users = @project.assignable_users.map { |user| [user.name, user.id] }
-    @categories = [["", 0]].concat(@project.issue_categories.map { |c| [c.name, c.id] })
+    @assignable_users = @project.assignable_users.collect { |user| [user.name, user.id] }
+    @categories = [['', 0]] + @project.issue_categories.collect { |c| [c.name, c.id] }
 
     @api_key = User.current.api_key
-    if !User.current.allowed_to?(:view_issues, @project)
+    unless User.current.allowed_to?(:view_issues, @project)
       render_403
     end
 
-    if Setting["plugin_redmine_meeting_room_calendar"]["show_project_menu"] != '1'
+    if Setting['plugin_redmine_meeting_room_calendar']['show_project_menu'] != '1'
       @project = nil
     end
   end
@@ -53,14 +53,14 @@ class MeetingRoomCalendarController < ApplicationController
     meeting_day = params[:start_date]
     meeting_date = Date.parse(meeting_day)
 
-    if (recur_meeting != "true")
+    if recur_meeting != 'true'
       recur_type = 1
       recur_period = 1
     end
 
     while recur_period > 0
       week_day = meeting_date.wday # 0->Sunday, 6-> Saturday
-      if(week_day!=6 && week_day!=0)
+      if week_day!=6 && week_day!=0
         @calendar_issue= Issue.new
         @calendar_issue.project_id = @project_id
         @calendar_issue.tracker_id = @tracker_id
@@ -73,12 +73,12 @@ class MeetingRoomCalendarController < ApplicationController
         @calendar_issue.start_date = meeting_date
         @calendar_issue.due_date = @calendar_issue.start_date
         @calendar_issue.custom_field_values = params[:custom_field_values]
-        original_mail_notification_value = User.current.mail_notification
+        orig_mail_notification = User.current.mail_notification
         User.current.mail_notification = 'none'
         User.current.save
         User.current.reload
         @calendar_issue.save!
-        User.current.mail_notification = original_mail_notification_value
+        User.current.mail_notification = orig_mail_notification
         User.current.save
         User.current.reload
       else
@@ -105,12 +105,12 @@ class MeetingRoomCalendarController < ApplicationController
     @calendar_issue.start_date = meeting_date
     @calendar_issue.due_date = @calendar_issue.start_date
     @calendar_issue.custom_field_values = params[:custom_field_values]
-    original_mail_notification_value = User.current.mail_notification
+    orig_mail_notification = User.current.mail_notification
     User.current.mail_notification = 'none'
     User.current.save
     User.current.reload
     @calendar_issue.save!
-    User.current.mail_notification = original_mail_notification_value
+    User.current.mail_notification = orig_mail_notification
     User.current.save
     User.current.reload
   end
@@ -124,27 +124,27 @@ class MeetingRoomCalendarController < ApplicationController
     end
   end
 
-  def missing_config
-
-  end
-
-  def check_settings()
-    if @project_id == nil || @project_id.to_s == "0" || @project_id.to_s == ""
+  def check_settings
+    if @project_id == nil || @project_id.to_s == '0' || @project_id.to_s == ''
       return false
     end
-    if @tracker_id == nil || @tracker_id.to_s == "0" || @project_id.to_s == ""
+    if @tracker_id == nil || @tracker_id.to_s == '0' || @project_id.to_s == ''
       return false
     end
-    if @custom_field_id_room == nil || @custom_field_id_room.to_s == "0" || @custom_field_id_room.to_s == ""
+    if @custom_field_id_room == nil || @custom_field_id_room.to_s == '0' || @custom_field_id_room.to_s == ''
       return false
     end
-    if @custom_field_id_start == nil || @custom_field_id_start.to_s == "0" || @custom_field_id_start.to_s == ""
+    if @custom_field_id_start == nil || @custom_field_id_start.to_s == '0' || @custom_field_id_start.to_s == ''
       return false
     end
-    if @custom_field_id_end == nil || @custom_field_id_end.to_s == "0" || @custom_field_id_end.to_s == ""
+    if @custom_field_id_end == nil || @custom_field_id_end.to_s == '0' || @custom_field_id_end.to_s == ''
       return false
     end
 
     return true
+  end
+
+  def missing_config
+
   end
 end
