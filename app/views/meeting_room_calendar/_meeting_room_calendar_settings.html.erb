@@ -23,6 +23,11 @@
   <%= label_tag('settings[custom_field_id_end]', l(:label_setting_custom_field_id_end)) %>
   <%= select_tag('settings[custom_field_id_end]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_end'] || 0))) %>
 </p>
+<%- issue_status_ids = IssueStatus.find(:all) %>
+<p>
+  <%= label_tag('settings[issue_status_id]', l(:label_setting_issue_status_id)) %>
+  <%= select_tag('settings[issue_status_id]', options_for_select([['', 0]] + issue_status_ids.collect{|c| [c.name, c.id]}, (@settings['issue_status_id'] || 0))) %>
+</p>
 <p>
   <%= label_tag('settings[show_project_menu]', l(:label_setting_show_project_menu)) %>
   <%= check_box_tag('settings[show_project_menu]', 1, (@settings['show_project_menu'] == '1')) %>

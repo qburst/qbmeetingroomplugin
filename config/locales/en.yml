@@ -40,6 +40,7 @@ en:
   label_setting_custom_field_id_room: "Custom field 'Room'"
   label_setting_custom_field_id_start: "Custom field 'Start'"
   label_setting_custom_field_id_end: "Custom field 'End'"
+  label_setting_issue_status_id: "Issue status"
   label_setting_show_project_menu: "Show project menu"
   label_setting_show_categories: "Show category selection"
   label_setting_hide_projects: "Hide project selection"

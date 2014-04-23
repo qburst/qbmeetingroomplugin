@@ -40,6 +40,7 @@ de:
   label_setting_custom_field_id_room: "Benutzerfeld 'Raum'"
   label_setting_custom_field_id_start: "Benutzerfeld 'Start'"
   label_setting_custom_field_id_end: "Benutzerfeld 'Ende'"
+  label_setting_issue_status_id: "Ticketstatus"
   label_setting_show_project_menu: "Projektmenü anzeigen"
   label_setting_show_categories: "Kategorieauswahl anzeigen"
   label_setting_hide_projects: "Pojektauswahl ausblenden"

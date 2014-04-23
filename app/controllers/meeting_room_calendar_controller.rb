@@ -22,6 +22,7 @@ class MeetingRoomCalendarController < ApplicationController
     @custom_field_id_room = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_room']
     @custom_field_id_start = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_start']
     @custom_field_id_end = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_end']
+    @issue_status_id = Setting['plugin_redmine_meeting_room_calendar']['issue_status_id']
     @show_categories = Setting['plugin_redmine_meeting_room_calendar']['show_categories']
 
     if check_settings
@@ -97,6 +98,9 @@ class MeetingRoomCalendarController < ApplicationController
         @calendar_issue.start_date = meeting_date
         @calendar_issue.due_date = @calendar_issue.start_date
         @calendar_issue.custom_field_values = params[:custom_field_values]
+        if @issue_status_id != nil && @issue_status_id != '0' && @issue_status_id != 0
+          @calendar_issue.status = IssueStatus.find_by_id(@issue_status_id)
+        end
         orig_mail_notification = User.current.mail_notification
         User.current.mail_notification = 'none'
         User.current.save
@@ -106,7 +110,7 @@ class MeetingRoomCalendarController < ApplicationController
         User.current.save
         User.current.reload
       else
-      recur_period +=1
+        recur_period +=1
       end
       meeting_date += recur_type
       recur_period -=1
