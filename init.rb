@@ -19,7 +19,8 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
                         'show_project_menu' => '1',
                         'show_categories' => '0',
                         'hide_projects' => '1',
-                        'hide_rooms' => '0'},
+                        'hide_rooms' => '0',
+                        'allow_changing_old_meetings' => '0'},
            :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 

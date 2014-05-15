@@ -257,6 +257,8 @@
       var isPastDay = function(calDate) {
           var current_date = new Date();
           if (calDate <= current_date) {
+              if (allow_changing_old_meetings == 1)
+                return false;
               return true;
           } else {
               return false;

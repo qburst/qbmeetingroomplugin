@@ -24,6 +24,7 @@ class MeetingRoomCalendarController < ApplicationController
     @custom_field_id_end = Setting['plugin_redmine_meeting_room_calendar']['custom_field_id_end']
     @issue_status_id = Setting['plugin_redmine_meeting_room_calendar']['issue_status_id']
     @show_categories = Setting['plugin_redmine_meeting_room_calendar']['show_categories']
+    @allow_changing_old_meetings = Setting['plugin_redmine_meeting_room_calendar']['allow_changing_old_meetings'] || 0
 
     if check_settings
       @start_time = CustomField.find_by_id(@custom_field_id_start).possible_values

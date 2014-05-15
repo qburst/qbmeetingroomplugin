@@ -45,6 +45,7 @@ zh:
   label_setting_show_categories: "Show category selection"
   label_setting_hide_projects: "Hide project selection"
   label_setting_hide_rooms: "Hide room selection"
+  label_setting_allow_changing_old_meetings: "Allow changing of bookings in the past"
 
   datetime_title_format_day: "dddd, MMM d, yyyy"
   datetime_title_format_week: "MMM d[ yyyy]{ -[ MMM] d yyyy}"
