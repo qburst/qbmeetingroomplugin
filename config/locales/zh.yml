@@ -49,6 +49,8 @@ zh:
   label_setting_allow_drag_and_drop: "Allow drag and drop of bookings with the mouse"
   label_setting_allow_resize: "Allow resizing of bookings with the mouse"
 
+  field_project_meeting_rooms: "Meeting rooms (comma separated list)"
+
   datetime_title_format_day: "dddd, MMM d, yyyy"
   datetime_title_format_week: "MMM d[ yyyy]{ -[ MMM] d yyyy}"
   datetime_title_format_month: "MMMM yyyy"

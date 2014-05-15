@@ -49,6 +49,8 @@ de:
   label_setting_allow_drag_and_drop: "Buchungen mit der Maus verschieben"
   label_setting_allow_resize: "Buchungen mit der Maus verlängern/verkürzen"
 
+  field_project_meeting_rooms: "Besprechungszimmer (Komma getrennte Liste)"
+
   datetime_title_format_day: "dddd, d. MMM, yyyy"
   datetime_title_format_week: "d. MMM[ yyyy]{ - d. MMM yyyy}"
   datetime_title_format_month: "MMMM yyyy"

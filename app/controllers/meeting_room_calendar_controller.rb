@@ -47,10 +47,14 @@ class MeetingRoomCalendarController < ApplicationController
       return
     end
 
-    @projects = Project.find(@project_ids).collect { |p| [p.name, p.id] }
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
     @project = Project.find_by_id(params[:project_id].to_i)
     if @project == nil
       @project = Project.find_by_id(@project_id.to_i)
+    end
+    if @project == nil
+      redirect_to :action => 'missing_config'
+      return
     end
     @project_id = @project.id
     @user = User.current.id
@@ -68,12 +72,37 @@ class MeetingRoomCalendarController < ApplicationController
       render_403
     end
 
+    if @project.project_meeting_rooms && !@project.project_meeting_rooms.empty?
+      rooms = @project.project_meeting_rooms.split(',').collect { |r| r.strip }
+      if @meeting_rooms == nil || @meeting_rooms.count == 0
+        @meeting_rooms = rooms
+      else
+        @meeting_rooms = @meeting_rooms & rooms
+      end
+    end
+
     if Setting['plugin_redmine_meeting_room_calendar']['show_project_menu'] != '1'
       @project = nil
     end
   end
 
   def create
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @project = Project.find_by_id(params[:project_id].to_i)
+    if @project == nil
+      @project = Project.find_by_id(@project_id.to_i)
+    end
+    if @project == nil
+      redirect_to :action => 'missing_config'
+      return
+    end
+    @project_id = @project.id
+
+    unless User.current.allowed_to?(:add_issues, @project)
+      render_403
+      return
+    end
+
     recur_meeting = params[:recur]
     recur_type = params[:periodtype].to_i
     recur_period = params[:period].to_i
@@ -121,6 +150,22 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def update
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @project = Project.find_by_id(params[:project_id].to_i)
+    if @project == nil
+      @project = Project.find_by_id(@project_id.to_i)
+    end
+    if @project == nil
+      redirect_to :action => 'missing_config'
+      return
+    end
+    @project_id = @project.id
+
+    unless User.current.allowed_to?(:edit_issues, @project)
+      render_403
+      return
+    end
+
     meeting_day   = params[:start_date]
     meeting_date  = Date.parse(meeting_day)
     project_id = params[:project_id].to_i
@@ -148,6 +193,22 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def delete
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @project = Project.find_by_id(params[:project_id].to_i)
+    if @project == nil
+      @project = Project.find_by_id(@project_id.to_i)
+    end
+    if @project == nil
+      redirect_to :action => 'missing_config'
+      return
+    end
+    @project_id = @project.id
+
+    unless User.current.allowed_to?(:delete_issues, @project)
+      render_403
+      return
+    end
+
     @calendar_issue = Issue.find(params[:event_id])
     begin
       @calendar_issue.reload.destroy
