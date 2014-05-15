@@ -46,6 +46,8 @@ de:
   label_setting_hide_projects: "Pojektauswahl ausblenden"
   label_setting_hide_rooms: "Raumauswahl ausblenden"
   label_setting_allow_changing_old_meetings: "Buchungen in der Vergangenheit änderbar"
+  label_setting_allow_drag_and_drop: "Buchungen mit der Maus verschieben"
+  label_setting_allow_resize: "Buchungen mit der Maus verlängern/verkürzen"
 
   datetime_title_format_day: "dddd, d. MMM, yyyy"
   datetime_title_format_week: "d. MMM[ yyyy]{ - d. MMM yyyy}"

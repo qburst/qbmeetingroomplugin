@@ -48,3 +48,11 @@
   <%= label_tag('settings[allow_changing_old_meetings]', l(:label_setting_allow_changing_old_meetings)) %>
   <%= check_box_tag('settings[allow_changing_old_meetings]', 1, (@settings['allow_changing_old_meetings'] == '1')) %>
 </p>
+<p>
+  <%= label_tag('settings[allow_drag_and_drop]', l(:label_setting_allow_drag_and_drop)) %>
+  <%= check_box_tag('settings[allow_drag_and_drop]', 1, (@settings['allow_drag_and_drop'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_resize]', l(:label_setting_allow_resize)) %>
+  <%= check_box_tag('settings[allow_resize]', 1, (@settings['allow_resize'] == '1')) %>
+</p>

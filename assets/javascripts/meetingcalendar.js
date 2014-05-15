@@ -3,6 +3,7 @@
   var meeting_day = '';
   var end_time_clone = '';
   var event;
+  var draggedEventIsPastDay = false;
 
   jQuery(document).ready(function($) {
       if (!window.console)
@@ -269,6 +270,12 @@
       Description: intialising fullcalendar to render events
       */
       var loadCalendar = function() {
+          var disableDragAndDrop = true;
+          if (allow_drag_and_drop == 1)
+              disableDragAndDrop = false;
+          var disableResize = true;
+          if (allow_resize == 1)
+              disableResize = false;
           if (getEventsJSON(0)) {
               console.log('Loading Meeting Calendar')
               $('#calendar').fullCalendar({
@@ -283,7 +290,9 @@
                       agenda : langDateTimeTimeFormat + '{ - ' + langDateTimeTimeFormat + '}'
                   },
                   defaultView : 'agendaWeek',
-                  editable : false,
+                  editable : true,
+                  disableDragging: disableDragAndDrop,
+                  disableResizing: disableResize,
                   minTime : langDateTimeMin,
                   maxTime : langDateTimeMax,
                   weekends : false,
@@ -416,6 +425,30 @@
                           $('#delete_meeting').hide();
                           setEndTime();
                       }
+                  },
+                  eventDragStart: function( event, jsEvent, ui, view ) { return true; },
+                  eventDragStop: function( event, jsEvent, ui, view )
+                  {
+                      if (isPastDay(event.start)) {
+                          draggedEventIsPastDay = true;
+                          return false;
+                      }
+                      draggedEventIsPastDay = false;
+                      return true;
+                  },
+                  eventDrop: quickEditEvent,
+                  eventResizeStart: function( event, jsEvent, ui, view ) { return true; },
+                  eventResizeStop: function( event, jsEvent, ui, view )
+                  {
+                      if (isPastDay(event.start)) {
+                          draggedEventIsPastDay = true;
+                          return false;
+                      }
+                      draggedEventIsPastDay = false;
+                      return true;
+                  },
+                  eventResize: function( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) {
+                      quickEditEvent(event, dayDelta, minuteDelta, false, revertFunc, jsEvent, ui, view);
                   }
               });
           }
@@ -423,6 +456,86 @@
       $('#recurCheckbox').click(function() {
           showHiderecurdiv();
       });
+
+      var quickEditEvent = function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view )
+      {
+          if (allDay) {
+              revertFunc();
+              return false;
+          }
+          if ("Anonymous" == $('#user_name').val() || "Anonym" == $('#user_name').val()) {
+              console.log('User not logged in');
+              revertFunc();
+              return false;
+          }
+          var event_author_id = event.event_author_id;
+          meeting_day = $.fullCalendar.formatDate(event.start, 'yyyy-MM-dd');
+          $('input:checkbox').removeAttr('checked');
+          $('#event_id').val(event.event_id);
+          if (isPastDay(event.start) || draggedEventIsPastDay) {
+              jAlert(langWarningEditPast, langInfo);
+              revertFunc();
+              return false;
+          } else if (!(isCurrentUser(event_author_id, event.assigned_to_id))) {
+              console.log('It is an event created by another user');
+              revertFunc();
+              return false;
+          } else {
+              if (!(isOverlapping(event.start, event.end))) {
+                  console.log('No overlapping');
+
+                  event.starttime = $.fullCalendar.formatDate(event.start, langDateTimeTimeFormat);
+                  event.endtime = $.fullCalendar.formatDate(event.end, langDateTimeTimeFormat);
+                  var x = event.starttime.split(':');
+                  if (x[0].length == '1') {
+                      x[0] = '0' + x[0];
+                      event.starttime = x[0] + ':' + x[1];
+                  }
+                  var y = event.endtime.split(':')
+                  if (y[0].length == '1') {
+                      y[0] = '0' + y[0];
+                      event.endtime = y[0] + ':' + y[1];
+                  }
+                  var customData = {};
+                  customData[fieldIdStart] = event.starttime;
+                  customData[fieldIdEnd] = event.endtime;
+                  customData[fieldIdRoom] = $('#meeting_rooms').val();
+                  var category_id = 0;
+                  if (show_categories == '1')
+                      category_id = event.category_id;
+                  var ajaxData = {
+                      key: api_key,
+                      project_id: $('#project_id').val(),
+                      author_id: event.event_author_id,
+                      assigned_to_id: event.assigned_to_id,
+                      category_id: category_id,
+                      subject: event.subject,
+                      start_date: meeting_day,
+                      due_date: meeting_day,
+                      custom_field_values: customData,
+                      event_id: event.event_id,
+                      recur: false,
+                      periodtype: 0,
+                      period: 0
+                  };
+                  $('#event_id').val(0);
+                  $.ajax({
+                      url: baseUrl + '/' + pluginName + '/update',
+                      data: ajaxData,
+                      success: function (data) {
+                          reloadCalendar();
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                          revertFunc();
+                      }
+                  });
+                  return true;
+              } else {
+                  revertFunc();
+                  return false;
+              }
+          }
+      }
 
       /*
       Author: shiju@qburst.com

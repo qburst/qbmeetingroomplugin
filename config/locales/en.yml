@@ -46,6 +46,8 @@ en:
   label_setting_hide_projects: "Hide project selection"
   label_setting_hide_rooms: "Hide room selection"
   label_setting_allow_changing_old_meetings: "Allow changing of bookings in the past"
+  label_setting_allow_drag_and_drop: "Allow drag and drop of bookings with the mouse"
+  label_setting_allow_resize: "Allow resizing of bookings with the mouse"
 
   datetime_title_format_day: "dddd, MMM d, yyyy"
   datetime_title_format_week: "MMM d[ yyyy]{ -[ MMM] d yyyy}"
