@@ -112,6 +112,7 @@
                  title = stripSubject(title, 36) + " ...";
               }
               eventClassName = 'category_' + category_id;
+              eventClassName = eventClassName + ' tracker_status_' + event[i].status.id;
               if (isCurrentUser(event[i].author.id, assigned_to_id)) {
                   eventClassName = 'myEvents ' + eventClassName;
               }
