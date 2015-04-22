@@ -7,7 +7,7 @@ This Redmine plugin allows you to book and thence display meetings on a calendar
 # Requirements
 ------------
 
-* Redmine 2.x (does not work with Redmine 1.x)
+* Redmine 2.x or 3.x (does not work with Redmine 1.x)
 
 # Install
 -------
