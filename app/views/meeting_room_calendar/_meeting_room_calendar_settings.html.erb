@@ -1,16 +1,16 @@
-<%- project_ids = Project.find(:all) %>
+<%- project_ids = Project.all %>
 <p>
   <%= label_tag('settings[project_ids]', l(:label_setting_project_id)) %>
   <%= select_tag('settings[project_ids]', options_for_select(project_ids.collect{|c| [c.name, c.id]}, (@settings['project_ids'] || [])), :multiple => true) %>
 </p>
 
-<%- tracker_ids = Tracker.find(:all) %>
+<%- tracker_ids = Tracker.all %>
 <p>
   <%= label_tag('settings[tracker_id]', l(:label_setting_tracker_id)) %>
   <%= select_tag('settings[tracker_id]', options_for_select([['', 0]] + tracker_ids.collect{|c| [c.name, c.id]}, (@settings['tracker_id'] || 0))) %>
 </p>
 
-<%- custom_fields_issues = CustomField.find(:all, :conditions => "type = 'IssueCustomField'") %>
+<%- custom_fields_issues = CustomField.where(type: 'IssueCustomField') %>
 <p>
   <%= label_tag('settings[custom_field_id_room]', l(:label_setting_custom_field_id_room)) %>
   <%= select_tag('settings[custom_field_id_room]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_room'] || 0))) %>
@@ -23,7 +23,7 @@
   <%= label_tag('settings[custom_field_id_end]', l(:label_setting_custom_field_id_end)) %>
   <%= select_tag('settings[custom_field_id_end]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_end'] || 0))) %>
 </p>
-<%- issue_status_ids = IssueStatus.find(:all) %>
+<%- issue_status_ids = IssueStatus.all %>
 <p>
   <%= label_tag('settings[issue_status_id]', l(:label_setting_issue_status_id)) %>
   <%= select_tag('settings[issue_status_id]', options_for_select([['', 0]] + issue_status_ids.collect{|c| [c.name, c.id]}, (@settings['issue_status_id'] || 0))) %>
