@@ -1,10 +1,14 @@
 <h2><%= l(:label_name) %></h2>
 
-<%= stylesheet_link_tag 'fullcalendar',:plugin => 'redmine_meeting_room_calendar' %>
-<%= stylesheet_link_tag 'jquery-ui-1.7.3.custom.css',:plugin => 'redmine_meeting_room_calendar' %>
-<%= stylesheet_link_tag 'fullcalendar',:plugin => 'redmine_meeting_room_calendar',:media => 'print' %>
-<%= stylesheet_link_tag 'meeting_calendar',:plugin => 'redmine_meeting_room_calendar' %>
-<%= stylesheet_link_tag 'jquery.alerts.css',:plugin => 'redmine_meeting_room_calendar' %>
+<%= stylesheet_link_tag 'jquery.qtip/jquery.qtip.min.css',:plugin => 'redmine_meeting_room_calendar' %>
+
+<%= stylesheet_link_tag 'jquery.alerts/jquery.alerts.css',:plugin => 'redmine_meeting_room_calendar' %>
+
+<%= stylesheet_link_tag 'fullcalendar/jquery-ui.min.css',:plugin => 'redmine_meeting_room_calendar' %>
+<%= stylesheet_link_tag 'fullcalendar/fullcalendar.min.css',:plugin => 'redmine_meeting_room_calendar' %>
+<%= stylesheet_link_tag 'fullcalendar/fullcalendar.print.css',:plugin => 'redmine_meeting_room_calendar',:media => 'print' %>
+
+<%= stylesheet_link_tag 'meeting_calendar.css',:plugin => 'redmine_meeting_room_calendar' %>
 
 <script type="text/javascript">
     var baseUrl = "<%= @base_url %>";
@@ -15,61 +19,62 @@
 	
 	var pluginName = "meeting_room_calendar";
 
-	var user_is_manager  = <%= @user_is_manager %>;
-	var user_last_name  = "<%= @user_last_name %>";
-	var show_categories  = "<%= @show_categories %>";
-    var allow_changing_old_meetings  = <%= @allow_changing_old_meetings %>;
-    var allow_drag_and_drop  = <%= @allow_drag_and_drop %>;
-    var allow_resize  = <%= @allow_resize %>;
+	var user_is_manager = <%= @user_is_manager %>;
+	var user_can_add = <%= @user_can_add %>;
+	var user_can_edit = <%= @user_can_edit %>;
+	var user_can_delete = <%= @user_can_delete %>;
+	var user_last_name = "<%= @user_last_name %>";
+	var show_categories = "<%= @show_categories %>";
+    var allow_changing_old_meetings = <%= @allow_changing_old_meetings %>;
+    var allow_drag_and_drop = <%= @allow_drag_and_drop %>;
+    var allow_resize = <%= @allow_resize %>;
+    var allow_multiple_days = <%= @allow_multiple_days %>;
+    var hide_rooms = <%= @settings['hide_rooms'] == '1' || 0 %>;
+    var show_ticket_id = <%= @settings['show_ticket_id'] == '1' || 0 %>;
+    
+    var current_lang = '<%= I18n.locale %>';
 	
-	var langBookedBy  = "<%= l(:label_booked_by) %>";
-	var langAssignedTo  = "<%= l(:label_assigned_to) %>";
-    var langCategory  = "<%= l(:label_category) %>";
-	var langStartTime  = "<%= l(:label_start_time) %>";
-	var langEndTime  = "<%= l(:label_end_time) %>";
-	var langInfo  = "<%= l(:label_info) %>";
-	var langAlert  = "<%= l(:label_alert) %>";
-	var langWarningEditPast  = "<%= l(:label_warning_edit_past) %>";
-	var langWarningCreatePast  = "<%= l(:label_warning_create_past) %>";
-	var langWarningUpdatePast  = "<%= l(:label_warning_update_past) %>";
-	var langWarningWeekend  = "<%= l(:label_warning_weekend) %>";
-	var langWarningFieldsMandatory  = "<%= l(:label_warning_fields_mandatory) %>";
-	var langUpdateEvent  = "<%= l(:label_update_event) %>";
-	var langCreateEvent  = "<%= l(:label_create_event) %>";
-	var langInvalidSubject  = "<%= l(:label_invalid_subject) %>";
-	var langRoomAlreadyBooked  = "<%= l(:label_room_already_booked) %>";
-	var langToday  = "<%= l(:label_today) %>";
-	var langDay  = "<%= l(:label_day) %>";
-	var langWeek  = "<%= l(:label_week) %>";
-	var langMonth  = "<%= l(:label_month) %>";
+	var langBookedBy = "<%= l(:label_booked_by) %>";
+	var langAssignedTo = "<%= l(:label_assigned_to) %>";
+    var langCategory = "<%= l(:label_category) %>";
+	var langStartTime = "<%= l(:label_start_time) %>";
+	var langEndTime = "<%= l(:label_end_time) %>";
+	var langInfo = "<%= l(:label_info) %>";
+	var langAlert = "<%= l(:label_alert) %>";
+	var langWarningEditPast = "<%= l(:label_warning_edit_past) %>";
+	var langWarningCreatePast = "<%= l(:label_warning_create_past) %>";
+	var langWarningUpdatePast = "<%= l(:label_warning_update_past) %>";
+	var langWarningWeekend = "<%= l(:label_warning_weekend) %>";
+	var langWarningFieldsMandatory = "<%= l(:label_warning_fields_mandatory) %>";
+	var langUpdateEvent = "<%= l(:label_update_event) %>";
+	var langCreateEvent = "<%= l(:label_create_event) %>";
+	var langInvalidSubject = "<%= l(:label_invalid_subject) %>";
+	var langRoomAlreadyBooked = "<%= l(:label_room_already_booked) %>";
+	var langRoom = "<%= l(:label_meeting_room) %>";
 	
-	var langDateTimeTimeTitleFormatDay  = "<%= l(:datetime_title_format_day) %>";
-	var langDateTimeTimeTitleFormatWeek  = "<%= l(:datetime_title_format_week) %>";
-	var langDateTimeTimeTitleFormatMonth  = "<%= l(:datetime_title_format_month) %>";
-	var langDateTimeTimeColumnFormatDay  = "<%= l(:datetime_column_format_day) %>";
-	var langDateTimeTimeColumnFormatWeek  = "<%= l(:datetime_column_format_week) %>";
-	var langDateTimeTimeColumnFormatMonth  = "<%= l(:datetime_column_format_month) %>";
-	var langDateTimeTimeEntryFormatTime  = "<%= l(:datetime_entry_format_time) %>";
+	var tracker_name = "<%= Tracker.find(@tracker_id).name %>";
+	var all_meeting_rooms = <%= raw(@meeting_rooms.collect { |room| room }) %>;
+	var all_start_times = <%= raw(@start_time.collect { |time| time }) %>;
+	var all_end_times = <%= raw(@end_time.collect { |time| time }) %>;
 	
-	var langDateTimeMin  = "<%= l(:datetime_min) %>";
-	var langDateTimeMax  = "<%= l(:datetime_max) %>";
-	var langDateTimeTimeFormat  = "<%= l(:datetime_time_format) %>";
-	var langAbbrDayNames = <%= raw l(:abbr_day_names) %>;
-	var langDayNames = <%= raw l(:day_names) %>;
-	var langAbbrMonthNames = <%= raw l(:abbr_month_names) %>;
-	var langMonthNames = <%= raw l(:month_names) %>;
-	var langFirstDay = <%= l(:first_day) %>;
-	var langDateFormat = "<%= l(:date_format) %>";
+	var datetime_min = all_start_times[0] + ':00';
+    var datetime_max = all_end_times[all_end_times.length-1] + ':00';
 
 	var api_key = "<%= @api_key %>";
 </script>
 
-<%= javascript_include_tag 'jquery-1.7.1.min.js' ,:plugin => 'redmine_meeting_room_calendar'%>
-<%= javascript_include_tag 'jquery.qtip-1.0.0-rc3.min.js',:plugin => 'redmine_meeting_room_calendar'%>
-<%= javascript_include_tag 'jquery-ui.min.js',:plugin => 'redmine_meeting_room_calendar' %>
-<%= javascript_include_tag 'fullcalendar',:plugin => 'redmine_meeting_room_calendar'%>
-<%= javascript_include_tag 'meetingcalendar',:plugin => 'redmine_meeting_room_calendar'%>
-<%= javascript_include_tag 'jquery.alerts.js',:plugin => 'redmine_meeting_room_calendar'%>
+<%= javascript_include_tag 'setup.js',:plugin => 'redmine_meeting_room_calendar'%>
+
+<%= javascript_include_tag 'fullcalendar/lib/jquery-ui.custom.min.js',:plugin => 'redmine_meeting_room_calendar'%>
+<%= javascript_include_tag 'fullcalendar/lib/moment.min.js',:plugin => 'redmine_meeting_room_calendar'%>
+<%= javascript_include_tag 'fullcalendar/fullcalendar.min.js',:plugin => 'redmine_meeting_room_calendar'%>
+<%= javascript_include_tag 'fullcalendar/lang-all.js',:plugin => 'redmine_meeting_room_calendar'%>
+
+<%= javascript_include_tag 'jquery.qtip/jquery.qtip.min.js' ,:plugin => 'redmine_meeting_room_calendar'%>
+
+<%= javascript_include_tag 'jquery.alerts/jquery.alerts.js' ,:plugin => 'redmine_meeting_room_calendar'%>
+
+<%= javascript_include_tag 'meetingcalendar.js',:plugin => 'redmine_meeting_room_calendar'%>
 
 <div style="padding-bottom:15px">
     <%= l(:label_goto) %>: <%= text_field_tag :datepicker %>
@@ -93,20 +98,31 @@
        end
     %>
     <%= label_tag("label_meeting_room", l(:label_meeting_room), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
-    <%= select_tag("meeting_rooms",options_for_select(@meeting_rooms), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
+    <%= select_tag("meeting_rooms",options_for_select(@meeting_rooms + [[l(:label_all_meeting_rooms), 'all']]), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
     <div id="loading">&nbsp;</div> 
 </div>
 <!-- fullcalendar target div -->
 <div id='calendar'></div>
 <div class="saveMeetingModal">
 	<div class="formLayout">
-        <%= label_tag("meeting_date", l(:label_meeting_date)) %><%= text_field_tag("meeting_date") %><br/>
-	    <%= label_tag(:subject, l(:label_subject)) %><%= text_field_tag :subject,@user_last_name,:maxlength => 255 %><br/>
-	    <%= label_tag("start_time", l(:label_start_time)) %><%= select_tag "start_time", options_for_select(@start_time) %><br/>
-	    <%= label_tag("end_time", l(:label_end_time)) %><%= select_tag "end_time", options_for_select(@end_time) %><br/>
+	    <div id="selected_meeting_room_container">
+	        <%= label_tag("selected_meeting_room", l(:label_meeting_room)) %><%= select_tag "selected_meeting_room", options_for_select(@meeting_rooms) %><br/>
+	    </div>
+        <% if @settings['allow_multiple_days'] == '1' %>
+            <%= label_tag(:subject, l(:label_subject)) %><%= text_field_tag :subject,@user_last_name,:maxlength => 255 %><br/>
+            <%= label_tag("meeting_date", l(:label_meeting_date)) %><%= text_field_tag("meeting_date") %><br/>
+	        <%= label_tag("start_time", l(:label_start_time)) %><%= select_tag "start_time", options_for_select(@start_time) %><br/>
+	        <%= label_tag("meeting_end_date", l(:label_meeting_end_date)) %><%= text_field_tag("meeting_end_date") %><br/>
+	        <%= label_tag("end_time", l(:label_end_time)) %><%= select_tag "end_time", options_for_select(@end_time) %><br/>
+        <% else %>
+            <%= label_tag("meeting_date", l(:label_meeting_date)) %><%= text_field_tag("meeting_date") %><br/>
+            <%= label_tag(:subject, l(:label_subject)) %><%= text_field_tag :subject,@user_last_name,:maxlength => 255 %><br/>
+	        <%= label_tag("start_time", l(:label_start_time)) %><%= select_tag "start_time", options_for_select(@start_time) %><br/>
+	        <%= label_tag("end_time", l(:label_end_time)) %><%= select_tag "end_time", options_for_select(@end_time) %><br/>
+        <% end %>
 	    <%= label_tag(:assigned_to_id, l(:label_assigne_to)) %> <%= select_tag :assigned_to_id, options_for_select(@assignable_users, @user) %><br/>
 	    <%if @show_categories=='1' %>
-	    <%= label_tag(:category_id, l(:label_category)) %> <%= select_tag :category_id, options_for_select(@categories) %><br/>
+	        <%= label_tag(:category_id, l(:label_category)) %> <%= select_tag :category_id, options_for_select(@categories) %><br/>
 	    <%end %>
 	    <div class="field">
 	        <em style="font-size:9px"><%= l(:label_warning_fields_mandatory) %></em>
@@ -114,8 +130,8 @@
 	    <div class="recurfield">
 		    <%= label_tag('recurCheckbox', l(:label_recur)) %><%= check_box_tag 'recurCheckbox' %><br/>
 		    <div id ="recur_div">
-		        <label></label><%= select_tag "periodtype", options_for_select({l(:label_daily) => 1, l(:label_weekly) => 7, l(:label_biweekly) => 14}, 1) %><br/>
-				<label></label><%= text_field_tag "period",5,:maxlength => 2, :size => 3 %> <%= l(:label_count) %>
+                <label></label><%= select_tag "periodtype", options_for_select({l(:label_daily) => 1, l(:label_weekly) => 7, l(:label_biweekly) => 14}, 1) %><br/>
+			    <%= label_tag("period", l(:label_count)) %><%= text_field_tag "period",5,:maxlength => 2, :size => 3 %>
 		    </div>
 	    </div>
     </div>

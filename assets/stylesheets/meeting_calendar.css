@@ -5,11 +5,11 @@
   z-index: 1000 !important;
 }
 
-.ui-widget-header{ background: none !important; background-color: #EA1D22 !important; border: none !important; }
+.ui-widget-header{ background: none !important; background-color: #EA1D22 !important; color: white; border: none !important; }
 
 .saveMeetingModal { display: none; }
 
-.saveMeetingModal form label { float: left; width: 70px; text-align:left;}
+.saveMeetingModal form label { float: left; width: 140px; text-align:left;}
 
 #loading 
 {
@@ -20,10 +20,12 @@
   float: right;
   margin-top: 6px;
 }
+
 #loading 
 { 
     padding-left:85px\9;
 }
+
 div.field
 {
     padding-bottom: 5px;
@@ -32,80 +34,112 @@ div.field
     padding-top: 5px;
     width: 358px;
 }
+
 #save_meeting{
     position: relative;
     margin-left:76px;
 }
+
 .formLayout
 {
     padding: 10px;
     overflow: hidden;
-}   
+}
+ 
 .formLayout label, .formLayout input, .formLayout select
 {
     display: block;
     float: left;
     margin-bottom: 10px;
 }
+
 .formLayout label
 {
-    width: 90px;
+    width: 140px;
     text-align: right;
     padding-right: 20px;
 }
+
 .formLayout input, .formLayout select 
 {	
     width: 200px;
 }
+
 br
 {
     clear: left;
 }
-.fc-event-skin 
-{
-	border-color: #202020;
-}
-.fc-event-skin .fc-event-bg
-{
-	background: #E0E0E0 !important;
-}
-.fc-event-time, .fc-event-inner
+
+.fc-time-grid-event .fc-time
 {
 	background: #EA1D22;
 }
-.fc-agenda .myEvents .fc-event-time, .myEvents .fc-event-inner, .myEvents a 
+
+.fc-time-grid-event .fc-title
+{
+    color: #202020;
+}
+
+.fc-event .fc-bg
+{
+    border-color: #202020;
+    color: #202020; 
+    background: #E0E0E0 !important;
+    opacity: 1;
+}
+
+.fc-time-grid-event.myEvents .fc-time  
 {
    background-image: url(../images/wrench.png);
    background-repeat: no-repeat;
    background-position: center right
 }
 
+#recurCheckbox{
+   margin-left: -90px;
+}
+
+
 /************************************************************************************************************
 add the following for every category (<cid>=category id) where you want a different style:
 
-.fc-agenda .category_<cid> .fc-event-time, .category_<cid> .fc-event-inner, .category_<cid> a
+.fc-time-grid-event.category_<cid> .fc-time 
 {
   background-color: #<color>;
 }
 ************************************************************************************************************/
 
-.fc-agenda .category_1 .fc-event-time, .category_1 .fc-event-inner, .category_1 a
+.fc-time-grid-event.category_1 .fc-time 
 {
     background-color: #EA1D22;
 }
-.fc-agenda .category_2 .fc-event-time, .category_2 .fc-event-inner, .category_2 a
+.fc-time-grid-event.category_2 .fc-time
+{
+    background-color: black;
+}
+.fc-time-grid-event.category_3 .fc-time
+{
+    background-color: green;
+}
+
+/************************************************************************************************************
+add the following for every meeting room (<roomnr>=index of the room in the select box) where you want a different style:
+
+.fc-time-grid-event.meeting_room_<roomnr> .fc-time
+{
+  background-color: #<color>;
+}
+************************************************************************************************************/
+
+.fc-time-grid-event.meeting_room_1 .fc-time
 {
     background-color: #EA1D22;
 }
-.fc-agenda .category_3 .fc-event-time, .category_3 .fc-event-inner, .category_3 a
+.fc-time-grid-event.meeting_room_2 .fc-time
 {
-    background-color: #EA1D22;
+    background-color: black;
 }
-.fc-event-content 
+.fc-time-grid-event.meeting_room_3 .fc-time
 {
-	color: #202020;	
-	background: #E0E0E0;
-}
-#recurCheckbox{
-   margin-left: -90px;
+    background-color: green;
 }

@@ -10,7 +10,11 @@
   <%= select_tag('settings[tracker_id]', options_for_select([['', 0]] + tracker_ids.collect{|c| [c.name, c.id]}, (@settings['tracker_id'] || 0))) %>
 </p>
 
-<%- custom_fields_issues = CustomField.where(type: 'IssueCustomField') %>
+<%- if Rails::VERSION::MAJOR >= 4 %>
+  <%- custom_fields_issues = CustomField.where(type: 'IssueCustomField') %>
+<%- else %>
+  <%- custom_fields_issues = CustomField.find(:all, :conditions => "type = 'IssueCustomField'") %>
+<%- end %>
 <p>
   <%= label_tag('settings[custom_field_id_room]', l(:label_setting_custom_field_id_room)) %>
   <%= select_tag('settings[custom_field_id_room]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_room'] || 0))) %>
@@ -55,4 +59,12 @@
 <p>
   <%= label_tag('settings[allow_resize]', l(:label_setting_allow_resize)) %>
   <%= check_box_tag('settings[allow_resize]', 1, (@settings['allow_resize'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_multiple_days]', l(:label_setting_allow_multiple_days)) %>
+  <%= check_box_tag('settings[allow_multiple_days]', 1, (@settings['allow_multiple_days'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[show_ticket_id]', l(:label_setting_show_ticket_id)) %>
+  <%= check_box_tag('settings[show_ticket_id]', 1, (@settings['show_ticket_id'] == '1')) %>
 </p>

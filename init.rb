@@ -4,7 +4,7 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
   name 'Redmine Meeting Room Calendar plugin'
   author 'QBurst, Tobias Droste'
   description 'This is a plugin for Redmine to see meeting rooms on a particular day on the calendar'
-  version '2.1.3'
+  version '3.0.0'
   requires_redmine :version_or_higher => '2.0.0'
 
   permission :meeting_room_calendar, { :meeting_room_calendar => [:index] }, :public => true
@@ -22,7 +22,9 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
                         'hide_rooms' => '0',
                         'allow_changing_old_meetings' => '0',
                         'allow_drag_and_drop' => '0',
-                        'allow_resize' => '0'},
+                        'allow_resize' => '0',
+                        'allow_mutiple_days' => '0',
+                        'show_ticket_id' => '0'},
            :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 

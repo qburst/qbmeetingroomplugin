@@ -27,6 +27,7 @@ class MeetingRoomCalendarController < ApplicationController
     @allow_changing_old_meetings = Setting['plugin_redmine_meeting_room_calendar']['allow_changing_old_meetings'] || 0
     @allow_drag_and_drop = Setting['plugin_redmine_meeting_room_calendar']['allow_drag_and_drop'] || 0
     @allow_resize = Setting['plugin_redmine_meeting_room_calendar']['allow_resize'] || 0
+    @allow_multiple_days = Setting['plugin_redmine_meeting_room_calendar']['allow_multiple_days'] || 0
 
     if check_settings
       @start_time = CustomField.find_by_id(@custom_field_id_start).possible_values
@@ -47,10 +48,13 @@ class MeetingRoomCalendarController < ApplicationController
       return
     end
 
-    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @projects = Project.find(@project_ids).select{ |p| p.visible? && User.current.allowed_to?(:view_issues, p) }.collect { |p| [p.name, p.id] }
     @project = Project.find_by_id(params[:project_id].to_i)
     if @project == nil
       @project = Project.find_by_id(@project_id.to_i)
+    end
+    if @project != nil && (!@project.visible? || !User.current.allowed_to?(:view_issues, @project)) && @projects != nil && @projects.first != nil
+      @project = Project.find_by_id(@projects.first[1])
     end
     if @project == nil
       redirect_to :action => 'missing_config'
@@ -71,6 +75,10 @@ class MeetingRoomCalendarController < ApplicationController
     unless User.current.allowed_to?(:view_issues, @project)
       render_403
     end
+    
+    @user_can_add = User.current.allowed_to?(:add_issues, @project)
+    @user_can_edit = User.current.allowed_to?(:edit_issues, @project)
+    @user_can_delete = User.current.allowed_to?(:delete_issues, @project)
 
     if @project.project_meeting_rooms && !@project.project_meeting_rooms.empty?
       rooms = @project.project_meeting_rooms.split(',').collect { |r| r.strip }
@@ -107,7 +115,13 @@ class MeetingRoomCalendarController < ApplicationController
     recur_type = params[:periodtype].to_i
     recur_period = params[:period].to_i
     meeting_day = params[:start_date]
+    if @allow_multiple_days
+      meeting_end_day = params[:due_date]
+    else
+      meeting_end_day = meeting_day
+    end
     meeting_date = Date.parse(meeting_day)
+    meeting_end_date = Date.parse(meeting_end_day)
     project_id = params[:project_id].to_i
 
     if recur_meeting != 'true'
@@ -128,7 +142,7 @@ class MeetingRoomCalendarController < ApplicationController
           @calendar_issue.category_id = params[:category_id]
         end
         @calendar_issue.start_date = meeting_date
-        @calendar_issue.due_date = @calendar_issue.start_date
+        @calendar_issue.due_date = meeting_end_date
         @calendar_issue.custom_field_values = params[:custom_field_values]
         if @issue_status_id != nil && @issue_status_id != '0' && @issue_status_id != 0
           @calendar_issue.status = IssueStatus.find_by_id(@issue_status_id)
@@ -145,6 +159,7 @@ class MeetingRoomCalendarController < ApplicationController
         recur_period +=1
       end
       meeting_date += recur_type
+      meeting_end_date += recur_type
       recur_period -=1
     end
   end
@@ -166,8 +181,14 @@ class MeetingRoomCalendarController < ApplicationController
       return
     end
 
-    meeting_day   = params[:start_date]
-    meeting_date  = Date.parse(meeting_day)
+    meeting_day = params[:start_date]
+    if @allow_multiple_days
+      meeting_end_day = params[:due_date]
+    else
+      meeting_end_day = meeting_day
+    end
+    meeting_date = Date.parse(meeting_day)
+    meeting_end_date = Date.parse(meeting_end_day)
     project_id = params[:project_id].to_i
 
     @calendar_issue = Issue.new
@@ -180,7 +201,7 @@ class MeetingRoomCalendarController < ApplicationController
       @calendar_issue.category_id = params[:category_id]
     end
     @calendar_issue.start_date = meeting_date
-    @calendar_issue.due_date = @calendar_issue.start_date
+    @calendar_issue.due_date = meeting_end_day
     @calendar_issue.custom_field_values = params[:custom_field_values]
     orig_mail_notification = User.current.mail_notification
     User.current.mail_notification = 'none'
