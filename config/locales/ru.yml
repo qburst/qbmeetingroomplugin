@@ -41,7 +41,7 @@ ru:
   label_setting_issue_status_id: "Статус задачи"
   label_setting_show_project_menu: "Отображать меню проекта"
   label_setting_show_categories: "Отображать выбор категории"
-  label_setting_hide_projects: "Скрыть выюор проекта"
+  label_setting_hide_projects: "Скрыть выбор проекта"
   label_setting_hide_rooms: "Скрыть выбор комнаты"
   label_setting_allow_changing_old_meetings: "Разрешить бронирование в прошлом"
   label_setting_allow_drag_and_drop: "Разрешить 'drag and drop' бронирование мышкой"

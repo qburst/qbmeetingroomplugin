@@ -3,6 +3,7 @@ require 'redmine'
 Redmine::Plugin.register :redmine_meeting_room_calendar do
   name 'Redmine Meeting Room Calendar plugin'
   author 'QBurst, Tobias Droste'
+  author_url 'https://github.com/dro123/redmine_meeting_room_calendar'
   description 'This is a plugin for Redmine to see meeting rooms on a particular day on the calendar'
   version '3.0.0'
   requires_redmine :version_or_higher => '2.0.0'
