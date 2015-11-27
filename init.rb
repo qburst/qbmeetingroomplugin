@@ -25,7 +25,8 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
                         'allow_drag_and_drop' => '0',
                         'allow_resize' => '0',
                         'allow_mutiple_days' => '0',
-                        'show_ticket_id' => '0'},
+                        'show_ticket_id' => '0',
+                        'allow_weekends' => '1'},
            :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 

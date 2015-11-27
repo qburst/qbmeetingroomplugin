@@ -48,5 +48,6 @@ pt-br:
   label_setting_allow_resize: "Permitir redimensionar agendamentos com o mouse"
   label_setting_allow_multiple_days: "Allow bookings spanning multiple days"
   label_setting_show_ticket_id: "Show ticket #"
+  label_setting_allow_weekends: "Show weekends"
 
   field_project_meeting_rooms: "Salas de reuniões (separado por vírgulas)"

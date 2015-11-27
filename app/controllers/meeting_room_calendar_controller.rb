@@ -28,6 +28,7 @@ class MeetingRoomCalendarController < ApplicationController
     @allow_drag_and_drop = Setting['plugin_redmine_meeting_room_calendar']['allow_drag_and_drop'] || 0
     @allow_resize = Setting['plugin_redmine_meeting_room_calendar']['allow_resize'] || 0
     @allow_multiple_days = Setting['plugin_redmine_meeting_room_calendar']['allow_multiple_days'] || 0
+    @allow_weekends = Setting['plugin_redmine_meeting_room_calendar']['allow_weekends'] || 0
 
     if check_settings
       @start_time = CustomField.find_by_id(@custom_field_id_start).possible_values
@@ -131,7 +132,7 @@ class MeetingRoomCalendarController < ApplicationController
 
     while recur_period > 0
       week_day = meeting_date.wday # 0->Sunday, 6-> Saturday
-      if week_day!=6 && week_day!=0
+      if (week_day!=6 && week_day!=0) || (@allow_weekends=='1')
         @calendar_issue= Issue.new
         @calendar_issue.project_id = project_id
         @calendar_issue.tracker_id = @tracker_id

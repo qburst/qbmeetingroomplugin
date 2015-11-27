@@ -197,7 +197,7 @@
           }
           
           while (period > 0 && !overlapping) {
-              if (start.isoWeekday() == 6 || start.isoWeekday() == 7) {
+              if ((start.isoWeekday() == 6 || start.isoWeekday() == 7) && !allow_weekends) {
                   continue;
               }
               
@@ -305,7 +305,7 @@
               height: 'auto',
               contentHeight: 'auto',
               allDaySlot : false,
-              weekends : false,
+              weekends : allow_weekends == 1,
               slotEventOverlap : false,
               header : {
                   left : 'today prev next',
@@ -752,14 +752,14 @@
       $('#save_meeting').click(function() {
           var date = window.moment($('#meeting_date').val(), long_date_format);
           var date_end = date.clone();
-          if (date.isoWeekday() == 6 || date.isoWeekday() == 7) {
+          if ((date.isoWeekday() == 6 || date.isoWeekday() == 7) && !allow_weekends) {
               jAlert(langWarningWeekend, langInfo);
               return false;
           }
           
           if (allow_multiple_days == 1) {
               date_end = window.moment($('#meeting_end_date').val(), long_date_format);
-              if (date_end.isoWeekday() == 6 || date_end.isoWeekday() == 7) {
+              if ((date_end.isoWeekday() == 6 || date_end.isoWeekday() == 7) && !allow_weekends) {
                   jAlert(langWarningWeekend, langInfo);
                   return false;
               }

@@ -68,3 +68,7 @@
   <%= label_tag('settings[show_ticket_id]', l(:label_setting_show_ticket_id)) %>
   <%= check_box_tag('settings[show_ticket_id]', 1, (@settings['show_ticket_id'] == '1')) %>
 </p>
+<p>
+  <%= label_tag('settings[allow_weekends]', l(:label_setting_allow_weekends)) %>
+  <%= check_box_tag('settings[allow_weekends]', 1, (@settings['allow_weekends'] == '1')) %>
+</p>
