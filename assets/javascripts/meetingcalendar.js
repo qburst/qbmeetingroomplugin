@@ -7,6 +7,7 @@
   var long_time_format = 'HH:mm A';
   var long_date_format = 'MM/DD/YYYY';
   var long_date_format_datepicker = 'mm/dd/yy';
+  var first_day = 0;
   var eventsJSON = [];
 
   jQuery(document).ready(function($) {
@@ -306,6 +307,7 @@
               contentHeight: 'auto',
               allDaySlot : false,
               weekends : allow_weekends == 1,
+              firstDay: first_day,
               slotEventOverlap : false,
               header : {
                   left : 'today prev next',
@@ -752,14 +754,14 @@
       $('#save_meeting').click(function() {
           var date = window.moment($('#meeting_date').val(), long_date_format);
           var date_end = date.clone();
-          if ((date.isoWeekday() == 6 || date.isoWeekday() == 7) && !allow_weekends) {
+          if ((date.isoWeekday() == 6 || date.isoWeekday() == 7) && !(allow_weekends == 1)) {
               jAlert(langWarningWeekend, langInfo);
               return false;
           }
           
           if (allow_multiple_days == 1) {
               date_end = window.moment($('#meeting_end_date').val(), long_date_format);
-              if ((date_end.isoWeekday() == 6 || date_end.isoWeekday() == 7) && !allow_weekends) {
+              if ((date_end.isoWeekday() == 6 || date_end.isoWeekday() == 7) && !(allow_weekends == 1)) {
                   jAlert(langWarningWeekend, langInfo);
                   return false;
               }
@@ -874,14 +876,23 @@
           var months_short = window.moment.monthsShort();
           var months = window.moment.months();
           
+          var hide_weekends = $.datepicker.noWeekends;
+          if (allow_weekends == 1) {
+              hide_weekends = function(date) { return [true, "", ""]; };
+          }
+          
           var locale_Data = window.moment.localeData();
-          var first_day = locale_Data.firstDayOfWeek();
+          if (first_day_of_week == -1) {
+            first_day = locale_Data.firstDayOfWeek();
+          } else {
+            first_day = first_day_of_week;
+          }
           long_date_format = locale_Data.longDateFormat('L');
           long_date_format_datepicker = long_date_format.toLocaleLowerCase();
           long_date_format_datepicker = long_date_format_datepicker.replace(/yy/g, 'y');
           long_time_format = locale_Data.longDateFormat('LT');
           
-          $('#datepicker').datepicker({
+          $('#datepicker').datepicker({ 
               inline : false,
               firstDay : first_day,
               dateFormat : long_date_format_datepicker,
@@ -891,7 +902,7 @@
               dayNamesMin : weekdays_min,
               dayNamesShort : weekdays_short,
               dayNames : weekdays,              
-              beforeShowDay: $.datepicker.noWeekends,
+              beforeShowDay: hide_weekends,
               onSelect : function(dateText, inst) {
                   $('#calendar').fullCalendar('changeView', 'agendaDay');
                   $('#calendar').fullCalendar('gotoDate', $('#datepicker').datepicker("getDate"));
@@ -909,7 +920,7 @@
               dayNamesShort : weekdays_short,
               dayNames : weekdays,
               
-              beforeShowDay: $.datepicker.noWeekends
+              beforeShowDay: hide_weekends
           });
           
           $('#meeting_end_date').datepicker({
@@ -922,7 +933,7 @@
               dayNamesMin : weekdays_min,
               dayNamesShort : weekdays_short,
               dayNames : weekdays,
-              beforeShowDay: $.datepicker.noWeekends
+              beforeShowDay: hide_weekends
           });
           
           $('#start_time').empty();
@@ -944,6 +955,8 @@
           start_time_clone = $('#start_time option').clone();
           end_time_clone = $('#end_time option').clone();
       };
+      
+      localize();
 
       loadCalendar();
       // intial load calendar
