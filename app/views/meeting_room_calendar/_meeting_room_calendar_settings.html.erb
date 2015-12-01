@@ -72,3 +72,7 @@
   <%= label_tag('settings[allow_weekends]', l(:label_setting_allow_weekends)) %>
   <%= check_box_tag('settings[allow_weekends]', 1, (@settings['allow_weekends'] == '1')) %>
 </p>
+<p>
+  <%= label_tag('settings[allow_overlap]', l(:label_setting_allow_overlap)) %>
+  <%= check_box_tag('settings[allow_overlap]', 1, (@settings['allow_overlap'] == '1')) %>
+</p>

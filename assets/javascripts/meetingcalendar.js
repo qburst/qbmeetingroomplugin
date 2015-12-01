@@ -176,6 +176,10 @@
       Description: checking whether event overlaps with exisiting events
       */
       var isOverlapping = function(event_id, meeting_room, eventStart, eventEnd, periodtype, period) {
+          if (allow_overlap == 1) {
+	      return false;
+	  }
+	  
           var events = $('#calendar').fullCalendar('clientEvents');
           if (events.length == 0) {
               return false;
@@ -495,6 +499,9 @@
                   setEndTime();                  
               },
               eventOverlap: function(stillEvent, movingEvent) {
+		  if (allow_overlap == 1) {
+		      return true;
+		  }
                   return stillEvent.meeting_room != movingEvent.meeting_room;
               },
               eventDragStart: function( event, jsEvent, ui, view ) {

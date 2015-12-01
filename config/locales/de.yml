@@ -49,5 +49,6 @@ de:
   label_setting_allow_multiple_days: "Buchungen über mehrere Tage erlauben"
   label_setting_show_ticket_id: "Ticket # anzeigen"
   label_setting_allow_weekends: "Wochenende anzeigen"
+  label_setting_allow_overlap: "Allow booking overlap"
 
   field_project_meeting_rooms: "Besprechungszimmer (Komma getrennte Liste)"
