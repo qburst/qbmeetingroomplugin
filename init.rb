@@ -26,7 +26,8 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
                         'allow_resize' => '0',
                         'allow_mutiple_days' => '0',
                         'show_ticket_id' => '0',
-                        'allow_weekends' => '0'},
+                        'allow_weekends' => '1',
+                        'allow_overlap' => '0'},
            :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 
