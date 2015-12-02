@@ -49,5 +49,6 @@ pt-br:
   label_setting_allow_multiple_days: "Allow bookings spanning multiple days"
   label_setting_show_ticket_id: "Show ticket #"
   label_setting_allow_weekends: "Show weekends"
+  label_setting_allow_overlap: "Allow booking overlap"
 
   field_project_meeting_rooms: "Salas de reuniões (separado por vírgulas)"

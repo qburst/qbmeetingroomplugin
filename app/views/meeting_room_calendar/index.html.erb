@@ -32,6 +32,7 @@
     var hide_rooms = <%= @settings['hide_rooms'] == '1' || 0 %>;
     var show_ticket_id = <%= @settings['show_ticket_id'] == '1' || 0 %>;
     var allow_weekends = <%= @allow_weekends %>;
+    var allow_overlap = <%= @allow_overlap %>;
     var first_day_of_week = <%= start_of_week = Setting.start_of_week.blank? ? -1 : (Setting.start_of_week.to_i % 7) %>;
     
     
@@ -101,7 +102,7 @@
        end
     %>
     <%= label_tag("label_meeting_room", l(:label_meeting_room), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
-    <%= select_tag("meeting_rooms",options_for_select(@meeting_rooms + [[l(:label_all_meeting_rooms), 'all']]), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
+    <%= select_tag("meeting_rooms",options_for_select([[l(:label_all_meeting_rooms), 'all']] + @meeting_rooms), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
     <div id="loading">&nbsp;</div> 
 </div>
 <!-- fullcalendar target div -->

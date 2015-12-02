@@ -48,6 +48,7 @@ ru:
   label_setting_allow_resize: "Разрешить изменение бронирования мышкой"
   label_setting_allow_multiple_days: "Разрешить бронирование на несколько дней"
   label_setting_show_ticket_id: "Показывать номер задачи"
-  label_setting_allow_weekends: "Show weekends"
+  label_setting_allow_weekends: "Показывать выходные дни"
+  label_setting_allow_overlap: "Разрешить множественное бронирование"
 
   field_project_meeting_rooms: "Переговорные (список разделенный запятыми)"
