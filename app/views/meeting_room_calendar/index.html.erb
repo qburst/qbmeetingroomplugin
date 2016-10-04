@@ -34,6 +34,8 @@
     var allow_weekends = <%= @allow_weekends %>;
     var allow_overlap = <%= @allow_overlap %>;
     var first_day_of_week = <%= start_of_week = Setting.start_of_week.blank? ? -1 : (Setting.start_of_week.to_i % 7) %>;
+    var redmine_date_format = "<%= Setting.date_format %>".replace(/%Y/g, 'YYYY').replace(/%m/g, 'MM').replace(/%d/g, 'DD').replace(/%b/g, 'MMM').replace(/%B/g, 'MMMM');
+    var redmine_time_format = "<%= Setting.time_format %>".replace(/%H/g, 'HH').replace(/%M/g, 'mm').replace(/%I/g, 'hh').replace(/%p/g, 'A');
     
     
     var current_lang = '<%= I18n.locale %>';

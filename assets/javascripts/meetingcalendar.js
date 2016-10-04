@@ -324,6 +324,8 @@
               eventDurationEditable: !disableResize,
               minTime : datetime_min,
               maxTime : datetime_max,
+              timeFormat: long_time_format.replace(/HH/g, 'H').replace(/:mm/g, '(:mm)').replace(/ A/g, 't'),
+              axisFormat: long_time_format.replace(/HH/g, 'H').replace(/:mm/g, '(:mm)').replace(/ A/g, 't'),
               eventRender : function(event, element) {
                   var full_text = '<p>';
                   full_text = full_text + langRoom + ': ' + event.meeting_room + '<br />';
@@ -895,10 +897,18 @@
           } else {
             first_day = first_day_of_week;
           }
-          long_date_format = locale_Data.longDateFormat('L');
+          if (redmine_date_format == "") {
+            long_date_format = locale_Data.longDateFormat('L');
+          } else {
+            long_date_format = redmine_date_format;
+          }
           long_date_format_datepicker = long_date_format.toLocaleLowerCase();
-          long_date_format_datepicker = long_date_format_datepicker.replace(/yy/g, 'y');
-          long_time_format = locale_Data.longDateFormat('LT');
+          long_date_format_datepicker = long_date_format_datepicker.replace(/yy/g, 'y').replace(/mmmm/g, 'MM').replace(/mmm/g, 'M');
+          if (redmine_time_format == "") {
+            long_time_format = locale_Data.longDateFormat('LT');
+          } else {
+            long_time_format = redmine_time_format;
+          }
           
           $('#datepicker').datepicker({ 
               inline : false,
