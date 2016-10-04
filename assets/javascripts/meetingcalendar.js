@@ -9,6 +9,7 @@
   var long_date_format_datepicker = 'mm/dd/yy';
   var first_day = 0;
   var eventsJSON = [];
+  var current_room_index = 0;
 
   jQuery(document).ready(function($) {
       if (!window.console)
@@ -28,14 +29,11 @@
           var meeting_room = $('#meeting_rooms').val();
           var meeting_room_query = '';
           if (meeting_room == 'all') {
-              if (all_meeting_rooms.length > 0) {
-                  meeting_room_query = '&cf_' + fieldIdRoom + '=';
-                  for (var i=0; i < all_meeting_rooms.length; i++) {
-                      meeting_room_query = meeting_room_query + encodeURIComponent(all_meeting_rooms[i])+'|';
-                  }
-                  meeting_room_query = meeting_room_query.substring(0, meeting_room_query.length - 1);
+              if (all_meeting_rooms.length > 0 && current_room_index < all_meeting_rooms.length) {
+                  meeting_room_query = '&cf_' + fieldIdRoom + '=' + encodeURIComponent(all_meeting_rooms[current_room_index]);
               }
           } else {
+              current_room_index = 0;
               meeting_room_query = '&cf_' + fieldIdRoom + '=' + encodeURIComponent(meeting_room);
           }
           var project_id = $('#project_id').val();
@@ -52,19 +50,20 @@
               },
               success : function(data, textStatus, jqXHR) {
                   console.log('Get JSON success');
-                  if (buildEventsJSON(data, data.offset == 0)) {
-                      if (data.offset == 0) {
-                          $('#calendar').fullCalendar('removeEvents');
-                          $('#calendar').fullCalendar('addEventSource', eventsJSON);
-                      }
-
-                      $('#calendar').fullCalendar('refetchEvents');
-                      $('#calendar').fullCalendar('rerenderEvents');
-
-                      hideSpinner();
-
+                  if (buildEventsJSON(data, data.offset == 0 && current_room_index == 0)) {
                       if (data.total_count > (data.offset + data.limit)) {
                           getEventsJSON(data.offset + data.limit);
+                      } else {
+                          if (meeting_room == 'all' && (current_room_index+1) < all_meeting_rooms.length) {
+                              current_room_index = current_room_index + 1;
+                              getEventsJSON(0);
+                          } else {
+                              current_room_index = 0;
+                              $('#calendar').fullCalendar('removeEvents');
+                              $('#calendar').fullCalendar('addEventSource', eventsJSON);
+
+                              hideSpinner();
+                          }
                       }
                   }
               },
@@ -84,7 +83,7 @@
           var count = eventsRawJSON.issues.length;
           var event = eventsRawJSON.issues;
           if (clear) {
-              eventsJSON = [];
+              eventsJSON = {events:[]};
           }
           //  events to be rendered on fullcalendar
           // building events json for fullcalendar
@@ -143,7 +142,7 @@
               if (isCurrentUser(event[i].author.id, assigned_to_id)) {
                   eventClassName = eventClassName + ' myEvents ' + eventClassName;
               }
-              eventsJSON.push({
+              eventsJSON["events"].push({
                   title : title,
                   author : author_name,
                   start : start_time,
@@ -298,7 +297,8 @@
           var disableResize = true;
           if (allow_resize == 1)
               disableResize = false;
-              
+        
+          current_room_index = 0;
           if (!getEventsJSON(0)) {
               console.log('Failed loading Meeting Calendar');
               return;
@@ -681,6 +681,7 @@
       Description: reload calendar
       */
       var reloadCalendar = function() {
+          current_room_index = 0;
           if (getEventsJSON(0)) {
               console.log('Reload Calender');
           }
