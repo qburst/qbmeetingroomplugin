@@ -31,7 +31,7 @@ Redmine::Plugin.register :redmine_meeting_room_calendar do
            :partial => 'meeting_room_calendar/meeting_room_calendar_settings'
 end
 
-ActionDispatch::Callbacks.to_prepare do
+ActionDispatch::Callbacks.to_param do
   require_dependency 'project'
   Project.send(:include, RedmineMeetingRoomCalendar::Patches::ProjectPatch)
 end
