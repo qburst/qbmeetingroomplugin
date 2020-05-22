@@ -1,4 +1,4 @@
-class AddMeetingRoomsToProjects < ActiveRecord::Migration
+class AddMeetingRoomsToProjects < ActiveRecord::Migration[4.2]
   def self.up
     add_column :projects, :project_meeting_rooms, :string
   end
