@@ -1,0 +1,145 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) { #loading{padding-left: 80px;} }
+
+
+#ui-datepicker-div {
+  z-index: 1000 !important;
+}
+
+.ui-widget-header{ background: none !important; background-color: #EA1D22 !important; color: white; border: none !important; }
+
+.saveMeetingModal { display: none; }
+
+.saveMeetingModal form label { float: left; width: 140px; text-align:left;}
+
+#loading 
+{
+  background-image: url('../images/loading.gif');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-top: 6px;
+}
+
+#loading 
+{ 
+    padding-left:85px\9;
+}
+
+div.field
+{
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 0;
+    padding-top: 5px;
+    width: 358px;
+}
+
+#save_meeting{
+    position: relative;
+    margin-left:76px;
+}
+
+.formLayout
+{
+    padding: 10px;
+    overflow: hidden;
+}
+ 
+.formLayout label, .formLayout input, .formLayout select
+{
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.formLayout label
+{
+    width: 140px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.formLayout input, .formLayout select 
+{	
+    width: 200px;
+}
+
+br
+{
+    clear: left;
+}
+
+.fc-time-grid-event .fc-time
+{
+	background: #EA1D22;
+}
+
+.fc-time-grid-event .fc-title
+{
+    color: #202020;
+}
+
+.fc-event .fc-bg
+{
+    border-color: #202020;
+    color: #202020; 
+    background: #E0E0E0 !important;
+    opacity: 1;
+}
+
+.fc-time-grid-event.myEvents .fc-time  
+{
+   background-image: url(../images/wrench.png);
+   background-repeat: no-repeat;
+   background-position: center right
+}
+
+#recurCheckbox{
+   margin-left: -90px;
+}
+
+
+/************************************************************************************************************
+add the following for every category (<cid>=category id) where you want a different style:
+
+.fc-time-grid-event.category_<cid> .fc-time 
+{
+  background-color: #<color>;
+}
+************************************************************************************************************/
+
+.fc-time-grid-event.category_1 .fc-time 
+{
+    background-color: #EA1D22;
+}
+.fc-time-grid-event.category_2 .fc-time
+{
+    background-color: black;
+}
+.fc-time-grid-event.category_3 .fc-time
+{
+    background-color: green;
+}
+
+/************************************************************************************************************
+add the following for every meeting room (<roomnr>=index of the room in the select box) where you want a different style:
+
+.fc-time-grid-event.meeting_room_<roomnr> .fc-time
+{
+  background-color: #<color>;
+}
+************************************************************************************************************/
+
+.fc-time-grid-event.meeting_room_1 .fc-time
+{
+    background-color: #EA1D22;
+}
+.fc-time-grid-event.meeting_room_2 .fc-time
+{
+    background-color: black;
+}
+.fc-time-grid-event.meeting_room_3 .fc-time
+{
+    background-color: green;
+}
