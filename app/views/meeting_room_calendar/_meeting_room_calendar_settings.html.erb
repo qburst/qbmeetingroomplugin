@@ -1,0 +1,78 @@
+<%- project_ids = Project.all %>
+<p>
+  <%= label_tag('settings[project_ids]', l(:label_setting_project_id)) %>
+  <%= select_tag('settings[project_ids]', options_for_select(project_ids.collect{|c| [c.name, c.id]}, (@settings['project_ids'] || [])), :multiple => true) %>
+</p>
+
+<%- tracker_ids = Tracker.all %>
+<p>
+  <%= label_tag('settings[tracker_id]', l(:label_setting_tracker_id)) %>
+  <%= select_tag('settings[tracker_id]', options_for_select([['', 0]] + tracker_ids.collect{|c| [c.name, c.id]}, (@settings['tracker_id'] || 0))) %>
+</p>
+
+<%- if Rails::VERSION::MAJOR >= 4 %>
+  <%- custom_fields_issues = CustomField.where(type: 'IssueCustomField') %>
+<%- else %>
+  <%- custom_fields_issues = CustomField.find(:all, :conditions => "type = 'IssueCustomField'") %>
+<%- end %>
+<p>
+  <%= label_tag('settings[custom_field_id_room]', l(:label_setting_custom_field_id_room)) %>
+  <%= select_tag('settings[custom_field_id_room]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_room'] || 0))) %>
+</p>
+<p>
+  <%= label_tag('settings[custom_field_id_start]', l(:label_setting_custom_field_id_start)) %>
+  <%= select_tag('settings[custom_field_id_start]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_start'] || 0))) %>
+</p>
+<p>
+  <%= label_tag('settings[custom_field_id_end]', l(:label_setting_custom_field_id_end)) %>
+  <%= select_tag('settings[custom_field_id_end]', options_for_select([['', 0]] + custom_fields_issues.collect{|c| [c.name, c.id]}, (@settings['custom_field_id_end'] || 0))) %>
+</p>
+<%- issue_status_ids = IssueStatus.all %>
+<p>
+  <%= label_tag('settings[issue_status_id]', l(:label_setting_issue_status_id)) %>
+  <%= select_tag('settings[issue_status_id]', options_for_select([['', 0]] + issue_status_ids.collect{|c| [c.name, c.id]}, (@settings['issue_status_id'] || 0))) %>
+</p>
+<p>
+  <%= label_tag('settings[show_project_menu]', l(:label_setting_show_project_menu)) %>
+  <%= check_box_tag('settings[show_project_menu]', 1, (@settings['show_project_menu'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[show_categories]', l(:label_setting_show_categories)) %>
+  <%= check_box_tag('settings[show_categories]', 1, (@settings['show_categories'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[hide_projects]', l(:label_setting_hide_projects)) %>
+  <%= check_box_tag('settings[hide_projects]', 1, (@settings['hide_projects'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[hide_rooms]', l(:label_setting_hide_rooms)) %>
+  <%= check_box_tag('settings[hide_rooms]', 1, (@settings['hide_rooms'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_changing_old_meetings]', l(:label_setting_allow_changing_old_meetings)) %>
+  <%= check_box_tag('settings[allow_changing_old_meetings]', 1, (@settings['allow_changing_old_meetings'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_drag_and_drop]', l(:label_setting_allow_drag_and_drop)) %>
+  <%= check_box_tag('settings[allow_drag_and_drop]', 1, (@settings['allow_drag_and_drop'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_resize]', l(:label_setting_allow_resize)) %>
+  <%= check_box_tag('settings[allow_resize]', 1, (@settings['allow_resize'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_multiple_days]', l(:label_setting_allow_multiple_days)) %>
+  <%= check_box_tag('settings[allow_multiple_days]', 1, (@settings['allow_multiple_days'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[show_ticket_id]', l(:label_setting_show_ticket_id)) %>
+  <%= check_box_tag('settings[show_ticket_id]', 1, (@settings['show_ticket_id'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_weekends]', l(:label_setting_allow_weekends)) %>
+  <%= check_box_tag('settings[allow_weekends]', 1, (@settings['allow_weekends'] == '1')) %>
+</p>
+<p>
+  <%= label_tag('settings[allow_overlap]', l(:label_setting_allow_overlap)) %>
+  <%= check_box_tag('settings[allow_overlap]', 1, (@settings['allow_overlap'] == '1')) %>
+</p>
